@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { BookOpen, MessageCircle, GraduationCap, Sparkles } from "lucide-react";
+import { Link } from "react-router-dom";
+import { BookOpen, MessageCircle, GraduationCap, Sparkles, PenTool, FileCheck } from "lucide-react";
 import { Header } from "@/components/Header";
-import { LessonCard } from "@/components/LessonCard";
-import { VocabularyCard } from "@/components/VocabularyCard";
 import { ProgressStats } from "@/components/ProgressStats";
-import { AlphabetSection } from "@/components/AlphabetSection";
+import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 
 const lessons = [
