@@ -7,7 +7,6 @@ import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
 import Vocabulary from "./pages/Vocabulary";
 import Grammar from "./pages/Grammar";
-import Dialogues from "./pages/Dialogues";
 import Exercises from "./pages/Exercises";
 import Tests from "./pages/Tests";
 import NotFound from "./pages/NotFound";
@@ -25,7 +24,6 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/vocabulary" element={<Vocabulary />} />
             <Route path="/grammar" element={<Grammar />} />
-            <Route path="/dialogues" element={<Dialogues />} />
             <Route path="/exercises" element={<Exercises />} />
             <Route path="/tests" element={<Tests />} />
             <Route path="*" element={<NotFound />} />

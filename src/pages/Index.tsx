@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { BookOpen, MessageCircle, GraduationCap, Sparkles, PenTool, FileCheck, ChevronRight } from "lucide-react";
+import { BookOpen, GraduationCap, Sparkles, PenTool, FileCheck, ChevronRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { ProgressStats } from "@/components/ProgressStats";
 import { Button } from "@/components/ui/button";
@@ -21,14 +21,6 @@ const sections = [
     path: "/grammar",
     color: "from-secondary to-secondary/80",
     textColor: "text-secondary-foreground",
-  },
-  {
-    title: "Диалоги",
-    description: "Разговоры на повседневные темы",
-    icon: MessageCircle,
-    path: "/dialogues",
-    color: "from-accent to-accent/80",
-    textColor: "text-accent-foreground",
   },
   {
     title: "Упражнения",
@@ -142,11 +134,11 @@ const Index = () => {
             </div>
             <div className="flex items-start gap-3">
               <div className="rounded-lg bg-secondary/10 p-2 text-secondary">
-                <MessageCircle className="h-5 w-5" />
+                <PenTool className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-semibold text-foreground">Практические диалоги</h4>
-                <p className="text-sm text-muted-foreground">Повседневные разговоры</p>
+                <h4 className="font-semibold text-foreground">Упражнения</h4>
+                <p className="text-sm text-muted-foreground">Практические задания</p>
               </div>
             </div>
             <div className="flex items-start gap-3">
