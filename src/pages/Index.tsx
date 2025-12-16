@@ -1,48 +1,54 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { BookOpen, MessageCircle, GraduationCap, Sparkles, PenTool, FileCheck } from "lucide-react";
+import { BookOpen, MessageCircle, GraduationCap, Sparkles, PenTool, FileCheck, ChevronRight } from "lucide-react";
 import { Header } from "@/components/Header";
 import { ProgressStats } from "@/components/ProgressStats";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { Button } from "@/components/ui/button";
 
-const lessons = [
+const sections = [
   {
-    title: "Alifbo",
-    description: "Kirill alifbosini o'rganing",
+    title: "Lug'at",
+    description: "Eng ko'p ishlatiladigan ruscha so'zlar va iboralar",
     icon: BookOpen,
-    progress: 75,
-    color: "primary" as const,
-  },
-  {
-    title: "Salomlashish",
-    description: "Asosiy salomlashish iboralari",
-    icon: MessageCircle,
-    progress: 40,
-    color: "secondary" as const,
+    path: "/vocabulary",
+    color: "from-primary to-primary/80",
+    textColor: "text-primary-foreground",
   },
   {
     title: "Grammatika",
-    description: "Asosiy grammatik qoidalar",
+    description: "Rus alifbosi va grammatika qoidalari",
     icon: GraduationCap,
-    progress: 10,
-    color: "accent" as const,
+    path: "/grammar",
+    color: "from-secondary to-secondary/80",
+    textColor: "text-secondary-foreground",
+  },
+  {
+    title: "Dialoglar",
+    description: "Kundalik hayotga oid suhbatlar",
+    icon: MessageCircle,
+    path: "/dialogues",
+    color: "from-accent to-accent/80",
+    textColor: "text-accent-foreground",
+  },
+  {
+    title: "Mashqlar",
+    description: "Bo'sh joyni to'ldirish va to'g'ri javobni tanlash",
+    icon: PenTool,
+    path: "/exercises",
+    color: "from-primary to-primary/80",
+    textColor: "text-primary-foreground",
+  },
+  {
+    title: "Testlar",
+    description: "Har bir mavzu bo'yicha testlar va natijalar",
+    icon: FileCheck,
+    path: "/tests",
+    color: "from-secondary to-secondary/80",
+    textColor: "text-secondary-foreground",
   },
 ];
 
-const vocabulary = [
-  { russian: "Привет", uzbek: "Salom", pronunciation: "Privyet" },
-  { russian: "Спасибо", uzbek: "Rahmat", pronunciation: "Spasiba" },
-  { russian: "Да", uzbek: "Ha", pronunciation: "Da" },
-  { russian: "Нет", uzbek: "Yo'q", pronunciation: "Nyet" },
-  { russian: "Пожалуйста", uzbek: "Iltimos", pronunciation: "Pajalusta" },
-  { russian: "Здравствуйте", uzbek: "Assalomu alaykum", pronunciation: "Zdrastvuyte" },
-];
-
 const Index = () => {
-  const [activeSection, setActiveSection] = useState<"lessons" | "vocabulary" | "alphabet">("lessons");
-
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -61,9 +67,11 @@ const Index = () => {
             <p className="mb-8 text-lg text-muted-foreground animate-fade-in" style={{ animationDelay: "200ms" }}>
               Interaktiv darslar, so'z kartochkalari va mashqlar orqali rus tilini tez va samarali o'rganing
             </p>
-            <Button variant="hero" size="lg" className="animate-fade-in" style={{ animationDelay: "300ms" }}>
-              Darsni boshlash
-            </Button>
+            <Link to="/vocabulary">
+              <Button variant="hero" size="lg" className="animate-fade-in" style={{ animationDelay: "300ms" }}>
+                O'rganishni boshlash
+              </Button>
+            </Link>
           </div>
         </div>
         
@@ -75,71 +83,87 @@ const Index = () => {
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         {/* Progress Stats */}
-        <section className="mb-8">
+        <section className="mb-10">
           <h2 className="mb-4 text-lg font-semibold text-foreground">Sizning natijalaringiz</h2>
           <ProgressStats />
         </section>
 
-        {/* Section Tabs */}
-        <div className="mb-6 flex gap-2">
-          {[
-            { id: "lessons", label: "Darslar" },
-            { id: "vocabulary", label: "Lug'at" },
-            { id: "alphabet", label: "Alifbo" },
-          ].map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveSection(tab.id as typeof activeSection)}
-              className={`rounded-xl px-4 py-2 text-sm font-medium transition-all ${
-                activeSection === tab.id
-                  ? "bg-primary text-primary-foreground shadow-soft"
-                  : "bg-card text-muted-foreground hover:bg-muted hover:text-foreground"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
-        </div>
+        {/* Sections Grid */}
+        <section>
+          <h2 className="mb-6 text-2xl font-bold text-foreground">Bo'limlar</h2>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {sections.map((section, index) => {
+              const Icon = section.icon;
+              return (
+                <Link
+                  key={section.path}
+                  to={section.path}
+                  className={cn(
+                    "group relative overflow-hidden rounded-2xl p-6 transition-all duration-300",
+                    "bg-gradient-to-br shadow-card hover:shadow-xl hover:-translate-y-1",
+                    "animate-fade-in",
+                    section.color,
+                    section.textColor
+                  )}
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div className="relative z-10">
+                    <div className="mb-4 inline-flex rounded-xl bg-white/20 p-3 backdrop-blur-sm">
+                      <Icon className="h-6 w-6" />
+                    </div>
+                    <h3 className="mb-2 text-xl font-bold">{section.title}</h3>
+                    <p className="text-sm opacity-90 mb-4">{section.description}</p>
+                    <div className="flex items-center gap-1 text-sm font-medium">
+                      <span>Boshlash</span>
+                      <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
+                  </div>
+                  
+                  {/* Decorative circle */}
+                  <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10 transition-transform duration-300 group-hover:scale-110" />
+                </Link>
+              );
+            })}
+          </div>
+        </section>
 
-        {/* Lessons Section */}
-        {activeSection === "lessons" && (
-          <section className="grid gap-4 md:grid-cols-3">
-            {lessons.map((lesson, index) => (
-              <LessonCard
-                key={lesson.title}
-                {...lesson}
-                delay={index * 100}
-              />
-            ))}
-          </section>
-        )}
-
-        {/* Vocabulary Section */}
-        {activeSection === "vocabulary" && (
-          <section>
-            <div className="mb-4 rounded-xl bg-card p-4 shadow-sm">
-              <p className="text-sm text-muted-foreground">
-                💡 <strong>Maslahat:</strong> Tarjimani ko'rish uchun kartochkani bosing. Talaffuzni eshitish uchun tovush tugmasini bosing.
-              </p>
+        {/* Quick Info */}
+        <section className="mt-12 rounded-2xl bg-card p-6 shadow-card">
+          <h3 className="text-xl font-bold text-foreground mb-4">Ilova haqida</h3>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="flex items-start gap-3">
+              <div className="rounded-lg bg-primary/10 p-2 text-primary">
+                <BookOpen className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">Keng lug'at</h4>
+                <p className="text-sm text-muted-foreground">100+ so'z va iboralar</p>
+              </div>
             </div>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {vocabulary.map((word, index) => (
-                <VocabularyCard
-                  key={word.russian}
-                  {...word}
-                  delay={index * 100}
-                />
-              ))}
+            <div className="flex items-start gap-3">
+              <div className="rounded-lg bg-secondary/10 p-2 text-secondary">
+                <MessageCircle className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">Amaliy dialoglar</h4>
+                <p className="text-sm text-muted-foreground">Kundalik suhbatlar</p>
+              </div>
             </div>
-          </section>
-        )}
-
-        {/* Alphabet Section */}
-        {activeSection === "alphabet" && <AlphabetSection />}
+            <div className="flex items-start gap-3">
+              <div className="rounded-lg bg-accent/10 p-2 text-accent">
+                <FileCheck className="h-5 w-5" />
+              </div>
+              <div>
+                <h4 className="font-semibold text-foreground">Interaktiv testlar</h4>
+                <p className="text-sm text-muted-foreground">Bilimni tekshirish</p>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card py-8">
+      <footer className="border-t border-border bg-card py-8 mt-12">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">
             © 2024 RusTil - Rus tilini o'rganish ilovasi
