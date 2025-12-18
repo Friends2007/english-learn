@@ -106,7 +106,7 @@ const Index = () => {
         <div className="container mx-auto px-4 relative z-10">
           <div className="mx-auto max-w-2xl text-center">
             {/* Badge */}
-            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-primary/10 dark:bg-primary/20 backdrop-blur-sm border border-primary/20 dark:border-primary/30 px-5 py-2.5 text-sm font-medium text-primary animate-fade-in">
+            <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 px-5 py-2.5 text-sm font-medium text-primary animate-fade-in shadow-lg">
               <Sparkles className="h-4 w-4 animate-pulse" />
               Не забудьте выполнить ежедневные упражнения!
             </div>
@@ -159,15 +159,19 @@ const Index = () => {
                   to={section.path}
                   className={cn(
                     "group relative overflow-hidden rounded-2xl p-6 transition-all duration-500",
-                    "bg-gradient-to-br shadow-card text-white",
+                    "glass-card text-white",
+                    "bg-gradient-to-br",
                     "hover:shadow-glow hover:-translate-y-2 hover:scale-[1.02]",
                     "animate-fade-in",
                     section.color
                   )}
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
+                  {/* Glass overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none" />
+                  
                   <div className="relative z-10">
-                    <div className="mb-4 inline-flex rounded-xl bg-white/20 p-3 backdrop-blur-sm transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110">
+                    <div className="mb-4 inline-flex rounded-xl bg-white/20 backdrop-blur-md p-3 transition-transform duration-500 group-hover:rotate-6 group-hover:scale-110 border border-white/20">
                       <Icon className="h-6 w-6" />
                     </div>
                     <h3 className="mb-2 text-xl font-bold">{section.title}</h3>
@@ -179,7 +183,7 @@ const Index = () => {
                   </div>
                   
                   {/* Decorative circle with enhanced animation */}
-                  <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10 transition-all duration-500 group-hover:scale-150 group-hover:bg-white/20" />
+                  <div className="absolute -bottom-8 -right-8 h-32 w-32 rounded-full bg-white/10 backdrop-blur-sm transition-all duration-500 group-hover:scale-150 group-hover:bg-white/20" />
                   <div className="absolute -top-8 -left-8 h-24 w-24 rounded-full bg-white/5 transition-all duration-700 group-hover:scale-125" />
                 </Link>
               );
@@ -188,11 +192,11 @@ const Index = () => {
         </section>
 
         {/* Quick Info */}
-        <section className="mt-12 rounded-2xl bg-card p-6 shadow-card hover:shadow-glow transition-shadow duration-300 border border-border/30">
+        <section className="mt-12 rounded-2xl glass-section p-6 hover:shadow-glow transition-all duration-300">
           <h3 className="text-xl font-bold text-foreground mb-4">О приложении</h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="flex items-start gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-muted/50">
-              <div className="rounded-lg bg-primary/20 p-2 text-primary transition-transform duration-300 hover:scale-110">
+            <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
+              <div className="rounded-lg bg-primary/20 backdrop-blur-sm p-2.5 text-primary transition-transform duration-300 hover:scale-110 border border-primary/20">
                 <BookOpen className="h-5 w-5" />
               </div>
               <div>
@@ -200,8 +204,8 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">100+ слов и выражений</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-muted/50">
-              <div className="rounded-lg bg-secondary/20 p-2 text-secondary transition-transform duration-300 hover:scale-110">
+            <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
+              <div className="rounded-lg bg-secondary/20 backdrop-blur-sm p-2.5 text-secondary transition-transform duration-300 hover:scale-110 border border-secondary/20">
                 <PenTool className="h-5 w-5" />
               </div>
               <div>
@@ -209,8 +213,8 @@ const Index = () => {
                 <p className="text-sm text-muted-foreground">Практические задания</p>
               </div>
             </div>
-            <div className="flex items-start gap-3 p-3 rounded-xl transition-all duration-300 hover:bg-muted/50">
-              <div className="rounded-lg bg-primary/20 p-2 text-primary transition-transform duration-300 hover:scale-110">
+            <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
+              <div className="rounded-lg bg-primary/20 backdrop-blur-sm p-2.5 text-primary transition-transform duration-300 hover:scale-110 border border-primary/20">
                 <FileCheck className="h-5 w-5" />
               </div>
               <div>
