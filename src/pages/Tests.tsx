@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   XCircle,
   Trophy,
-  Clock,
   ChevronRight,
   RotateCcw,
   Plus,
@@ -143,19 +142,19 @@ const Tests = () => {
     try {
       const result = await adminApiCall('delete', undefined, testId);
       if (result.success) {
-        toast.success("Test o'chirildi");
+        toast.success("Test deleted");
         fetchTests();
       } else {
-        toast.error(result.error || "Xatolik yuz berdi");
+        toast.error(result.error || "Error occurred");
       }
     } catch (error: any) {
-      toast.error(error.message || "Xatolik yuz berdi");
+      toast.error(error.message || "Error occurred");
     }
   };
 
   const handleSignOut = () => {
     logout();
-    toast.success("Tizimdan chiqdingiz");
+    toast.success("Signed out");
   };
 
   // Filter tests: admins see all, others see only published
@@ -204,9 +203,9 @@ const Tests = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8 flex items-start justify-between gap-4 flex-wrap">
           <div>
-            <h1 className="text-3xl font-bold text-foreground mb-2">Testlar</h1>
+            <h1 className="text-3xl font-bold text-foreground mb-2">Tests</h1>
             <p className="text-muted-foreground">
-              Bilimlaringizni sinab ko'ring
+              Test your knowledge
             </p>
           </div>
 
@@ -215,11 +214,11 @@ const Tests = () => {
               <>
                 <Button onClick={() => setIsCreating(true)}>
                   <Plus className="h-4 w-4 mr-2" />
-                  Yangi test
+                  New Test
                 </Button>
                 <Button variant="outline" onClick={handleSignOut}>
                   <LogOut className="h-4 w-4 mr-2" />
-                  Chiqish
+                  Sign Out
                 </Button>
               </>
             ) : (
@@ -242,12 +241,12 @@ const Tests = () => {
             {visibleTests.length === 0 ? (
               <div className="rounded-2xl bg-card p-12 shadow-card text-center">
                 <p className="text-muted-foreground mb-4">
-                  Hozircha testlar yo'q
+                  No tests available yet
                 </p>
                 {isAdmin && (
                   <Button onClick={() => setIsCreating(true)}>
                     <Plus className="h-4 w-4 mr-2" />
-                    Birinchi testni yaratish
+                    Create first test
                   </Button>
                 )}
               </div>
@@ -267,7 +266,7 @@ const Tests = () => {
                       <span className="text-4xl">📝</span>
                       {!test.is_published && (
                         <span className="text-xs px-2 py-1 rounded-full bg-amber-500/10 text-amber-600">
-                          Qoralama
+                          Draft
                         </span>
                       )}
                     </div>
@@ -275,11 +274,11 @@ const Tests = () => {
                       {test.title}
                     </h3>
                     <p className="text-sm text-muted-foreground mb-4 line-clamp-2">
-                      {test.description || "Tavsif yo'q"}
+                      {test.description || "No description"}
                     </p>
                     <div className="flex items-center justify-between">
                       <span className="text-sm text-muted-foreground">
-                        {test.questions.length} ta savol
+                        {test.questions.length} questions
                       </span>
                       <div className="flex items-center gap-1">
                         {isAdmin && (
@@ -304,21 +303,19 @@ const Tests = () => {
                               <AlertDialogContent>
                                 <AlertDialogHeader>
                                   <AlertDialogTitle>
-                                    Testni o'chirish
+                                    Delete Test
                                   </AlertDialogTitle>
                                   <AlertDialogDescription>
-                                    Haqiqatan ham "{test.title}" testini
-                                    o'chirmoqchimisiz? Bu amalni qaytarib
-                                    bo'lmaydi.
+                                    Are you sure you want to delete "{test.title}"? This action cannot be undone.
                                   </AlertDialogDescription>
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
-                                  <AlertDialogCancel>Bekor qilish</AlertDialogCancel>
+                                  <AlertDialogCancel>Cancel</AlertDialogCancel>
                                   <AlertDialogAction
                                     onClick={() => handleDeleteTest(test.id)}
                                     className="bg-destructive hover:bg-destructive/90"
                                   >
-                                    O'chirish
+                                    Delete
                                   </AlertDialogAction>
                                 </AlertDialogFooter>
                               </AlertDialogContent>
@@ -330,7 +327,7 @@ const Tests = () => {
                           size="sm"
                           disabled={test.questions.length === 0}
                         >
-                          Boshlash
+                          Start
                           <ChevronRight className="h-4 w-4 ml-1" />
                         </Button>
                       </div>
@@ -355,7 +352,7 @@ const Tests = () => {
                   )}
                 />
                 <h2 className="text-2xl font-bold text-foreground mb-2">
-                  Test yakunlandi!
+                  Test Completed!
                 </h2>
                 <p className="text-muted-foreground">{currentTest?.title}</p>
               </div>
@@ -365,15 +362,14 @@ const Tests = () => {
                   {getPercentage()}%
                 </div>
                 <p className="text-lg text-foreground">
-                  {calculateScore()} / {currentTest?.questions.length} to'g'ri
-                  javob
+                  {calculateScore()} / {currentTest?.questions.length} correct answers
                 </p>
                 <p className="text-sm text-muted-foreground mt-2">
                   {getPercentage() >= 80
-                    ? "🎉 Ajoyib natija!"
+                    ? "🎉 Excellent result!"
                     : getPercentage() >= 60
-                    ? "👍 Yaxshi, davom eting!"
-                    : "📚 Ko'proq mashq qiling"}
+                    ? "👍 Good job, keep going!"
+                    : "📚 Keep practicing!"}
                 </p>
               </div>
 
@@ -401,10 +397,10 @@ const Tests = () => {
                         <p className="text-xs text-muted-foreground mt-1">
                           {answers[index] !== q.correct && (
                             <span className="text-destructive">
-                              Sizning javobingiz: {q.options[answers[index]]} •{" "}
+                              Your answer: {q.options[answers[index]]} •{" "}
                             </span>
                           )}
-                          To'g'ri javob: {q.options[q.correct]}
+                          Correct answer: {q.options[q.correct]}
                         </p>
                         {q.explanation && (
                           <p className="text-xs text-muted-foreground mt-1 italic">
@@ -419,14 +415,14 @@ const Tests = () => {
 
               <div className="flex gap-3">
                 <Button variant="outline" onClick={resetTest} className="flex-1">
-                  Testlarga qaytish
+                  Back to Tests
                 </Button>
                 <Button
                   onClick={() => startTest(selectedTest)}
                   className="flex-1"
                 >
                   <RotateCcw className="h-4 w-4 mr-2" />
-                  Qaytadan boshlash
+                  Try Again
                 </Button>
               </div>
             </div>
@@ -438,7 +434,7 @@ const Tests = () => {
                 onClick={resetTest}
                 className="text-primary hover:underline"
               >
-                ← Testlarga qaytish
+                ← Back to Tests
               </button>
               <div className="flex items-center gap-4">
                 <span className="text-sm font-medium text-foreground">
@@ -506,7 +502,7 @@ const Tests = () => {
                   disabled={currentQuestion === 0}
                   className="flex-1"
                 >
-                  Oldingi
+                  Previous
                 </Button>
                 <Button
                   onClick={nextQuestion}
@@ -514,8 +510,8 @@ const Tests = () => {
                   className="flex-1"
                 >
                   {currentQuestion === (currentTest?.questions.length || 0) - 1
-                    ? "Yakunlash"
-                    : "Keyingi"}
+                    ? "Finish"
+                    : "Next"}
                 </Button>
               </div>
             </div>

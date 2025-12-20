@@ -1,4 +1,4 @@
-export type ExerciseType = "fill" | "choice" | "translate" | "case" | "conjugation";
+export type ExerciseType = "fill" | "choice" | "translate" | "tense" | "preposition";
 
 export interface BaseExercise {
   id: string;
@@ -27,31 +27,30 @@ export interface ChoiceExercise extends BaseExercise {
 
 export interface TranslateExercise extends BaseExercise {
   type: "translate";
-  russian: string;
+  english: string;
   uzbek: string;
-  direction: "ru-uz" | "uz-ru";
+  direction: "en-uz" | "uz-en";
   acceptedAnswers: string[];
 }
 
-export interface CaseExercise extends BaseExercise {
-  type: "case";
-  word: string;
-  originalForm: string;
-  targetCase: string;
-  answer: string;
-  hint: string;
-}
-
-export interface ConjugationExercise extends BaseExercise {
-  type: "conjugation";
+export interface TenseExercise extends BaseExercise {
+  type: "tense";
   verb: string;
-  infinitive: string;
-  pronoun: string;
+  baseForm: string;
+  subject: string;
   tense: string;
   answer: string;
 }
 
-export type Exercise = FillExercise | ChoiceExercise | TranslateExercise | CaseExercise | ConjugationExercise;
+export interface PrepositionExercise extends BaseExercise {
+  type: "preposition";
+  sentence: string;
+  answer: string;
+  hint: string;
+  options: string[];
+}
+
+export type Exercise = FillExercise | ChoiceExercise | TranslateExercise | TenseExercise | PrepositionExercise;
 
 export interface ExerciseCategory {
   id: string;
@@ -65,141 +64,141 @@ export interface ExerciseCategory {
 
 export const exerciseCategories: ExerciseCategory[] = [
   {
-    id: "cases",
-    title: "Падежи",
-    titleUz: "Kelishiklar",
-    description: "Русские падежи и склонения",
+    id: "tenses",
+    title: "Verb Tenses",
+    titleUz: "Fe'l zamonlari",
+    description: "Practice verb conjugation",
+    icon: "Zap",
+    color: "bg-gradient-to-br from-orange-500 to-amber-500",
+    exercises: [
+      // Beginner - Present Simple
+      { id: "t1", type: "tense", difficulty: "beginner", points: 10, verb: "work", baseForm: "work", subject: "He", tense: "Present Simple", answer: "works" },
+      { id: "t2", type: "tense", difficulty: "beginner", points: 10, verb: "go", baseForm: "go", subject: "She", tense: "Present Simple", answer: "goes" },
+      { id: "t3", type: "tense", difficulty: "beginner", points: 10, verb: "study", baseForm: "study", subject: "They", tense: "Present Simple", answer: "study" },
+      { id: "t4", type: "tense", difficulty: "beginner", points: 10, verb: "have", baseForm: "have", subject: "He", tense: "Present Simple", answer: "has" },
+      { id: "t5", type: "tense", difficulty: "beginner", points: 10, verb: "do", baseForm: "do", subject: "She", tense: "Present Simple", answer: "does" },
+      // Intermediate - Past Simple
+      { id: "t6", type: "tense", difficulty: "intermediate", points: 15, verb: "go", baseForm: "go", subject: "I", tense: "Past Simple", answer: "went" },
+      { id: "t7", type: "tense", difficulty: "intermediate", points: 15, verb: "see", baseForm: "see", subject: "We", tense: "Past Simple", answer: "saw" },
+      { id: "t8", type: "tense", difficulty: "intermediate", points: 15, verb: "buy", baseForm: "buy", subject: "She", tense: "Past Simple", answer: "bought" },
+      { id: "t9", type: "tense", difficulty: "intermediate", points: 15, verb: "write", baseForm: "write", subject: "He", tense: "Past Simple", answer: "wrote" },
+      { id: "t10", type: "tense", difficulty: "intermediate", points: 15, verb: "eat", baseForm: "eat", subject: "They", tense: "Past Simple", answer: "ate" },
+      // Advanced - Present Perfect
+      { id: "t11", type: "tense", difficulty: "advanced", points: 20, verb: "be", baseForm: "be", subject: "I", tense: "Present Perfect", answer: "have been" },
+      { id: "t12", type: "tense", difficulty: "advanced", points: 20, verb: "do", baseForm: "do", subject: "She", tense: "Present Perfect", answer: "has done" },
+      { id: "t13", type: "tense", difficulty: "advanced", points: 20, verb: "see", baseForm: "see", subject: "We", tense: "Present Perfect", answer: "have seen" },
+      { id: "t14", type: "tense", difficulty: "advanced", points: 20, verb: "write", baseForm: "write", subject: "He", tense: "Present Perfect", answer: "has written" },
+      { id: "t15", type: "tense", difficulty: "advanced", points: 20, verb: "go", baseForm: "go", subject: "They", tense: "Present Perfect", answer: "have gone" },
+    ],
+  },
+  {
+    id: "prepositions",
+    title: "Prepositions",
+    titleUz: "Predloglar",
+    description: "Time, place, and movement",
     icon: "TableProperties",
     color: "bg-gradient-to-br from-blue-500 to-blue-600",
     exercises: [
       // Beginner
-      { id: "c1", type: "case", difficulty: "beginner", points: 10, word: "книга", originalForm: "книга", targetCase: "Родительный", answer: "книги", hint: "Кого? Чего?" },
-      { id: "c2", type: "case", difficulty: "beginner", points: 10, word: "стол", originalForm: "стол", targetCase: "Предложный", answer: "столе", hint: "О ком? О чём? (на...)" },
-      { id: "c3", type: "case", difficulty: "beginner", points: 10, word: "мама", originalForm: "мама", targetCase: "Дательный", answer: "маме", hint: "Кому? Чему?" },
-      { id: "c4", type: "case", difficulty: "beginner", points: 10, word: "брат", originalForm: "брат", targetCase: "Винительный", answer: "брата", hint: "Кого? Что? (одуш.)" },
-      { id: "c5", type: "case", difficulty: "beginner", points: 10, word: "ручка", originalForm: "ручка", targetCase: "Творительный", answer: "ручкой", hint: "Кем? Чем?" },
+      { id: "p1", type: "preposition", difficulty: "beginner", points: 10, sentence: "I wake up ___ 7 o'clock.", answer: "at", hint: "specific time", options: ["at", "in", "on", "to"] },
+      { id: "p2", type: "preposition", difficulty: "beginner", points: 10, sentence: "The book is ___ the table.", answer: "on", hint: "surface", options: ["on", "in", "at", "under"] },
+      { id: "p3", type: "preposition", difficulty: "beginner", points: 10, sentence: "She lives ___ London.", answer: "in", hint: "city", options: ["in", "on", "at", "to"] },
+      { id: "p4", type: "preposition", difficulty: "beginner", points: 10, sentence: "We have a meeting ___ Monday.", answer: "on", hint: "day", options: ["on", "in", "at", "for"] },
+      { id: "p5", type: "preposition", difficulty: "beginner", points: 10, sentence: "The cat is ___ the box.", answer: "in", hint: "inside", options: ["in", "on", "at", "under"] },
       // Intermediate
-      { id: "c6", type: "case", difficulty: "intermediate", points: 15, word: "университет", originalForm: "университет", targetCase: "Предложный", answer: "университете", hint: "О ком? О чём? (в...)" },
-      { id: "c7", type: "case", difficulty: "intermediate", points: 15, word: "преподаватель", originalForm: "преподаватель", targetCase: "Дательный", answer: "преподавателю", hint: "Кому? Чему?" },
-      { id: "c8", type: "case", difficulty: "intermediate", points: 15, word: "лекция", originalForm: "лекция", targetCase: "Родительный", answer: "лекции", hint: "Кого? Чего?" },
-      { id: "c9", type: "case", difficulty: "intermediate", points: 15, word: "студент", originalForm: "студент", targetCase: "Творительный", answer: "студентом", hint: "Кем? Чем?" },
-      { id: "c10", type: "case", difficulty: "intermediate", points: 15, word: "экзамен", originalForm: "экзамен", targetCase: "Винительный", answer: "экзамен", hint: "Кого? Что? (неодуш.)" },
+      { id: "p6", type: "preposition", difficulty: "intermediate", points: 15, sentence: "I've been waiting ___ two hours.", answer: "for", hint: "duration", options: ["for", "since", "during", "in"] },
+      { id: "p7", type: "preposition", difficulty: "intermediate", points: 15, sentence: "She has worked here ___ 2020.", answer: "since", hint: "starting point", options: ["since", "for", "from", "in"] },
+      { id: "p8", type: "preposition", difficulty: "intermediate", points: 15, sentence: "We walked ___ the park.", answer: "through", hint: "passing inside", options: ["through", "across", "over", "along"] },
+      { id: "p9", type: "preposition", difficulty: "intermediate", points: 15, sentence: "The restaurant is ___ the bank and the post office.", answer: "between", hint: "middle of two", options: ["between", "among", "beside", "next to"] },
+      { id: "p10", type: "preposition", difficulty: "intermediate", points: 15, sentence: "He jumped ___ the swimming pool.", answer: "into", hint: "entering", options: ["into", "in", "to", "onto"] },
       // Advanced
-      { id: "c11", type: "case", difficulty: "advanced", points: 20, word: "здание", originalForm: "здание", targetCase: "Родительный", answer: "здания", hint: "Кого? Чего?" },
-      { id: "c12", type: "case", difficulty: "advanced", points: 20, word: "общежитие", originalForm: "общежитие", targetCase: "Предложный", answer: "общежитии", hint: "О ком? О чём?" },
-      { id: "c13", type: "case", difficulty: "advanced", points: 20, word: "расписание", originalForm: "расписание", targetCase: "Дательный", answer: "расписанию", hint: "Кому? Чему?" },
-      { id: "c14", type: "case", difficulty: "advanced", points: 20, word: "аудитория", originalForm: "аудитория", targetCase: "Творительный", answer: "аудиторией", hint: "Кем? Чем?" },
-      { id: "c15", type: "case", difficulty: "advanced", points: 20, word: "специальность", originalForm: "специальность", targetCase: "Родительный", answer: "специальности", hint: "Кого? Чего?" },
+      { id: "p11", type: "preposition", difficulty: "advanced", points: 20, sentence: "I'm looking forward ___ meeting you.", answer: "to", hint: "phrasal verb", options: ["to", "for", "at", "on"] },
+      { id: "p12", type: "preposition", difficulty: "advanced", points: 20, sentence: "She is good ___ playing tennis.", answer: "at", hint: "ability", options: ["at", "in", "on", "for"] },
+      { id: "p13", type: "preposition", difficulty: "advanced", points: 20, sentence: "This book was written ___ Shakespeare.", answer: "by", hint: "author", options: ["by", "from", "with", "of"] },
+      { id: "p14", type: "preposition", difficulty: "advanced", points: 20, sentence: "I'm not interested ___ football.", answer: "in", hint: "interest", options: ["in", "on", "at", "for"] },
+      { id: "p15", type: "preposition", difficulty: "advanced", points: 20, sentence: "She apologized ___ being late.", answer: "for", hint: "reason", options: ["for", "to", "about", "of"] },
     ],
   },
   {
-    id: "verbs",
-    title: "Глаголы",
-    titleUz: "Fe'llar",
-    description: "Спряжение глаголов",
-    icon: "Zap",
-    color: "bg-gradient-to-br from-orange-500 to-amber-500",
-    exercises: [
-      // Beginner - Present tense
-      { id: "v1", type: "conjugation", difficulty: "beginner", points: 10, verb: "читать", infinitive: "читать", pronoun: "я", tense: "настоящее", answer: "читаю" },
-      { id: "v2", type: "conjugation", difficulty: "beginner", points: 10, verb: "писать", infinitive: "писать", pronoun: "ты", tense: "настоящее", answer: "пишешь" },
-      { id: "v3", type: "conjugation", difficulty: "beginner", points: 10, verb: "говорить", infinitive: "говорить", pronoun: "он", tense: "настоящее", answer: "говорит" },
-      { id: "v4", type: "conjugation", difficulty: "beginner", points: 10, verb: "работать", infinitive: "работать", pronoun: "мы", tense: "настоящее", answer: "работаем" },
-      { id: "v5", type: "conjugation", difficulty: "beginner", points: 10, verb: "учиться", infinitive: "учиться", pronoun: "они", tense: "настоящее", answer: "учатся" },
-      // Intermediate - Past tense
-      { id: "v6", type: "conjugation", difficulty: "intermediate", points: 15, verb: "изучать", infinitive: "изучать", pronoun: "я (м)", tense: "прошедшее", answer: "изучал" },
-      { id: "v7", type: "conjugation", difficulty: "intermediate", points: 15, verb: "понимать", infinitive: "понимать", pronoun: "она", tense: "прошедшее", answer: "понимала" },
-      { id: "v8", type: "conjugation", difficulty: "intermediate", points: 15, verb: "объяснять", infinitive: "объяснять", pronoun: "он", tense: "прошедшее", answer: "объяснял" },
-      { id: "v9", type: "conjugation", difficulty: "intermediate", points: 15, verb: "готовиться", infinitive: "готовиться", pronoun: "мы", tense: "прошедшее", answer: "готовились" },
-      { id: "v10", type: "conjugation", difficulty: "intermediate", points: 15, verb: "сдавать", infinitive: "сдавать", pronoun: "вы", tense: "настоящее", answer: "сдаёте" },
-      // Advanced - Future & Perfective
-      { id: "v11", type: "conjugation", difficulty: "advanced", points: 20, verb: "прочитать", infinitive: "прочитать", pronoun: "я", tense: "будущее", answer: "прочитаю" },
-      { id: "v12", type: "conjugation", difficulty: "advanced", points: 20, verb: "написать", infinitive: "написать", pronoun: "мы", tense: "будущее", answer: "напишем" },
-      { id: "v13", type: "conjugation", difficulty: "advanced", points: 20, verb: "выучить", infinitive: "выучить", pronoun: "они", tense: "будущее", answer: "выучат" },
-      { id: "v14", type: "conjugation", difficulty: "advanced", points: 20, verb: "защитить", infinitive: "защитить", pronoun: "он", tense: "будущее", answer: "защитит" },
-      { id: "v15", type: "conjugation", difficulty: "advanced", points: 20, verb: "закончить", infinitive: "закончить", pronoun: "вы", tense: "будущее", answer: "закончите" },
-    ],
-  },
-  {
-    id: "academic",
-    title: "Академический русский",
-    titleUz: "Akademik rus tili",
-    description: "Университетская лексика",
+    id: "vocabulary",
+    title: "Vocabulary",
+    titleUz: "So'z boyligi",
+    description: "Everyday words and phrases",
     icon: "GraduationCap",
     color: "bg-gradient-to-br from-purple-500 to-violet-600",
     exercises: [
       // Fill exercises
-      { id: "a1", type: "fill", difficulty: "beginner", points: 10, sentence: "Студенты ___ в университете.", answer: "учатся", hint: "o'qiydilar", uzbek: "Talabalar universitetda o'qiydilar.", explanation: "Глагол «учиться» - o'qimoq" },
-      { id: "a2", type: "fill", difficulty: "beginner", points: 10, sentence: "Завтра у нас ___.", answer: "экзамен", hint: "imtihon", uzbek: "Ertaga bizda imtihon bor.", explanation: "Экзамен - imtihon" },
-      { id: "a3", type: "fill", difficulty: "beginner", points: 10, sentence: "Я получил ___ по математике.", answer: "пятёрку", hint: "a'lo baho", uzbek: "Men matematikadan a'lo baho oldim.", explanation: "Пятёрка = 5 (a'lo baho)" },
-      { id: "a4", type: "fill", difficulty: "intermediate", points: 15, sentence: "Профессор читает ___ по физике.", answer: "лекцию", hint: "ma'ruza", uzbek: "Professor fizikadan ma'ruza o'qiyapti.", explanation: "Лекция - ma'ruza" },
-      { id: "a5", type: "fill", difficulty: "intermediate", points: 15, sentence: "Я пишу курсовую ___.", answer: "работу", hint: "ish", uzbek: "Men kurs ishini yozyapman.", explanation: "Курсовая работа - kurs ishi" },
-      { id: "a6", type: "fill", difficulty: "intermediate", points: 15, sentence: "На факультете много ___ кафедр.", answer: "разных", hint: "turli", uzbek: "Fakultetda ko'p turli kafedralar bor.", explanation: "Разный - turli, xilma-xil" },
-      { id: "a7", type: "fill", difficulty: "advanced", points: 20, sentence: "Диссертация была успешно ___.", answer: "защищена", hint: "himoya qilindi", uzbek: "Dissertatsiya muvaffaqiyatli himoya qilindi.", explanation: "Защитить диссертацию - dissertatsiyani himoya qilmoq" },
-      { id: "a8", type: "fill", difficulty: "advanced", points: 20, sentence: "Научный ___ занимается исследованиями.", answer: "руководитель", hint: "rahbar", uzbek: "Ilmiy rahbar tadqiqotlar bilan shug'ullanadi.", explanation: "Научный руководитель - ilmiy rahbar" },
+      { id: "v1", type: "fill", difficulty: "beginner", points: 10, sentence: "I ___ to school every day.", answer: "go", hint: "boraman", uzbek: "Men har kuni maktabga boraman.", explanation: "go - bormoq" },
+      { id: "v2", type: "fill", difficulty: "beginner", points: 10, sentence: "She ___ English very well.", answer: "speaks", hint: "gapiradi", uzbek: "U ingliz tilida juda yaxshi gapiradi.", explanation: "speak - gapirmoq" },
+      { id: "v3", type: "fill", difficulty: "beginner", points: 10, sentence: "They ___ breakfast at 8 AM.", answer: "have", hint: "yeydilar", uzbek: "Ular soat 8 da nonushta qilishadi.", explanation: "have breakfast - nonushta qilmoq" },
+      { id: "v4", type: "fill", difficulty: "intermediate", points: 15, sentence: "I need to ___ my homework before dinner.", answer: "finish", hint: "tugatmoq", uzbek: "Men kechki ovqatdan oldin uy vazifamni tugatishim kerak.", explanation: "finish - tugatmoq" },
+      { id: "v5", type: "fill", difficulty: "intermediate", points: 15, sentence: "Could you ___ me the salt, please?", answer: "pass", hint: "uzating", uzbek: "Iltimos, tuzni uzata olasizmi?", explanation: "pass - uzatmoq" },
+      { id: "v6", type: "fill", difficulty: "intermediate", points: 15, sentence: "The movie was so ___ that I cried.", answer: "sad", hint: "g'amgin", uzbek: "Film shunchalik g'amgin ediki, men yig'lab yubordim.", explanation: "sad - g'amgin" },
+      { id: "v7", type: "fill", difficulty: "advanced", points: 20, sentence: "Despite the difficulties, she ___ to complete the project.", answer: "managed", hint: "uddaladi", uzbek: "Qiyinchiliklarga qaramay, u loyihani tugatishga muvaffaq bo'ldi.", explanation: "manage - uddalash, erishish" },
+      { id: "v8", type: "fill", difficulty: "advanced", points: 20, sentence: "The scientist made an important ___.", answer: "discovery", hint: "kashfiyot", uzbek: "Olim muhim kashfiyot qildi.", explanation: "discovery - kashfiyot" },
       // Choice exercises
-      { id: "a9", type: "choice", difficulty: "beginner", points: 10, question: "Как называется место, где живут студенты?", options: ["Библиотека", "Общежитие", "Столовая", "Аудитория"], correct: 1, uzbek: "Yotoqxona", explanation: "Общежитие - talabalar yashash joyi" },
-      { id: "a10", type: "choice", difficulty: "beginner", points: 10, question: "Что означает слово «зачёт»?", options: ["Imtihon", "Sinov", "Baho", "Stipendiya"], correct: 1, uzbek: "Sinov (zachyot)", explanation: "Зачёт - oraliq nazorat" },
-      { id: "a11", type: "choice", difficulty: "intermediate", points: 15, question: "Что такое «диплом»?", options: ["Bakalavr ishi", "Magistrlik dissertatsiyasi", "Bitiruv malakaviy ishi", "Kurs ishi"], correct: 2, uzbek: "Diplom ishi", explanation: "Дипломная работа - BMI" },
-      { id: "a12", type: "choice", difficulty: "intermediate", points: 15, question: "Кто такой «декан»?", options: ["Talaba", "Fakultet boshlig'i", "Rektor", "Laborant"], correct: 1, uzbek: "Dekan - fakultet boshlig'i", explanation: "Декан руководит факультетом" },
-      { id: "a13", type: "choice", difficulty: "advanced", points: 20, question: "Что означает «аспирантура»?", options: ["Bakalavriatura", "Magistratura", "Doktorantura", "Kollej"], correct: 2, uzbek: "Aspirantura - doktorantura", explanation: "Аспирантура - oliy ta'limdan keyingi bosqich" },
-      { id: "a14", type: "choice", difficulty: "advanced", points: 20, question: "Что такое «рецензия»?", options: ["Referat", "Taqriz", "Maqola", "Konspekt"], correct: 1, uzbek: "Retsenziya - taqriz", explanation: "Рецензия - ilmiy ishga taqriz" },
+      { id: "v9", type: "choice", difficulty: "beginner", points: 10, question: "What is the opposite of 'hot'?", options: ["warm", "cold", "cool", "wet"], correct: 1, uzbek: "Sovuq", explanation: "hot (issiq) ↔ cold (sovuq)" },
+      { id: "v10", type: "choice", difficulty: "beginner", points: 10, question: "Which word means 'katta'?", options: ["small", "big", "tall", "short"], correct: 1, uzbek: "Katta = big", explanation: "big - katta" },
+      { id: "v11", type: "choice", difficulty: "intermediate", points: 15, question: "What does 'delicious' mean?", options: ["terrible", "tasty", "boring", "ugly"], correct: 1, uzbek: "Mazali", explanation: "delicious - mazali" },
+      { id: "v12", type: "choice", difficulty: "intermediate", points: 15, question: "Choose the correct word: 'I'm very ___ today.'", options: ["tire", "tiring", "tired", "tiredness"], correct: 2, uzbek: "Charchagan", explanation: "tired - charchagan (adjective)" },
+      { id: "v13", type: "choice", difficulty: "advanced", points: 20, question: "What is a synonym for 'intelligent'?", options: ["stupid", "smart", "slow", "lazy"], correct: 1, uzbek: "Aqlli", explanation: "intelligent = smart - aqlli" },
+      { id: "v14", type: "choice", difficulty: "advanced", points: 20, question: "Which word means 'to succeed'?", options: ["fail", "achieve", "lose", "miss"], correct: 1, uzbek: "Muvaffaqiyatga erishmoq", explanation: "achieve - erishmoq, muvaffaq bo'lmoq" },
     ],
   },
   {
     id: "translation",
-    title: "Перевод",
+    title: "Translation",
     titleUz: "Tarjima",
-    description: "Русско-узбекский перевод",
+    description: "English-Uzbek translation",
     icon: "Languages",
     color: "bg-gradient-to-br from-emerald-500 to-green-600",
     exercises: [
-      // Russian to Uzbek
-      { id: "t1", type: "translate", difficulty: "beginner", points: 10, russian: "Здравствуйте!", uzbek: "Assalomu alaykum!", direction: "ru-uz", acceptedAnswers: ["assalomu alaykum", "salom", "assalomu aleykum"] },
-      { id: "t2", type: "translate", difficulty: "beginner", points: 10, russian: "Спасибо большое", uzbek: "Katta rahmat", direction: "ru-uz", acceptedAnswers: ["katta rahmat", "rahmat", "katta raxmat"] },
-      { id: "t3", type: "translate", difficulty: "beginner", points: 10, russian: "Как дела?", uzbek: "Ishlar qanday?", direction: "ru-uz", acceptedAnswers: ["ishlar qanday", "qanday ishlar", "yaxshimisiz", "qalaysiz"] },
-      { id: "t4", type: "translate", difficulty: "intermediate", points: 15, russian: "Я студент университета", uzbek: "Men universitet talabisiman", direction: "ru-uz", acceptedAnswers: ["men universitet talabisiman", "men universitetda o'qiyman", "men talabaman"] },
-      { id: "t5", type: "translate", difficulty: "intermediate", points: 15, russian: "Когда начинается лекция?", uzbek: "Ma'ruza qachon boshlanadi?", direction: "ru-uz", acceptedAnswers: ["ma'ruza qachon boshlanadi", "dars qachon boshlanadi", "maruza qachon boshlanadi"] },
-      { id: "t6", type: "translate", difficulty: "intermediate", points: 15, russian: "Где находится библиотека?", uzbek: "Kutubxona qayerda joylashgan?", direction: "ru-uz", acceptedAnswers: ["kutubxona qayerda joylashgan", "kutubxona qayerda", "kutubxona qaerda"] },
-      { id: "t7", type: "translate", difficulty: "advanced", points: 20, russian: "Я хочу написать научную статью", uzbek: "Men ilmiy maqola yozmoqchiman", direction: "ru-uz", acceptedAnswers: ["men ilmiy maqola yozmoqchiman", "ilmiy maqola yozmoqchiman", "men maqola yozmoqchiman"] },
-      { id: "t8", type: "translate", difficulty: "advanced", points: 20, russian: "Защита диссертации состоится завтра", uzbek: "Dissertatsiya himoyasi ertaga bo'ladi", direction: "ru-uz", acceptedAnswers: ["dissertatsiya himoyasi ertaga bo'ladi", "ertaga dissertatsiya himoyasi", "dissertatsiya himoyasi ertaga"] },
-      // Uzbek to Russian
-      { id: "t9", type: "translate", difficulty: "beginner", points: 10, russian: "Доброе утро", uzbek: "Xayrli tong", direction: "uz-ru", acceptedAnswers: ["доброе утро", "добрoе утро"] },
-      { id: "t10", type: "translate", difficulty: "beginner", points: 10, russian: "Пожалуйста", uzbek: "Iltimos / Marhamat", direction: "uz-ru", acceptedAnswers: ["пожалуйста", "пожалуста"] },
-      { id: "t11", type: "translate", difficulty: "intermediate", points: 15, russian: "Я изучаю русский язык", uzbek: "Men rus tilini o'rganyapman", direction: "uz-ru", acceptedAnswers: ["я изучаю русский язык", "я учу русский язык", "я изучаю русский"] },
-      { id: "t12", type: "translate", difficulty: "intermediate", points: 15, russian: "Расписание занятий", uzbek: "Dars jadvali", direction: "uz-ru", acceptedAnswers: ["расписание занятий", "расписание", "расписание уроков"] },
-      { id: "t13", type: "translate", difficulty: "advanced", points: 20, russian: "Научно-исследовательская работа", uzbek: "Ilmiy-tadqiqot ishi", direction: "uz-ru", acceptedAnswers: ["научно-исследовательская работа", "научная работа", "исследовательская работа"] },
-      { id: "t14", type: "translate", difficulty: "advanced", points: 20, russian: "Высшее образование", uzbek: "Oliy ta'lim", direction: "uz-ru", acceptedAnswers: ["высшее образование", "высшее обучение"] },
+      // English to Uzbek
+      { id: "tr1", type: "translate", difficulty: "beginner", points: 10, english: "Hello!", uzbek: "Salom!", direction: "en-uz", acceptedAnswers: ["salom", "assalomu alaykum", "salom!"] },
+      { id: "tr2", type: "translate", difficulty: "beginner", points: 10, english: "Thank you very much", uzbek: "Katta rahmat", direction: "en-uz", acceptedAnswers: ["katta rahmat", "rahmat", "katta raxmat"] },
+      { id: "tr3", type: "translate", difficulty: "beginner", points: 10, english: "How are you?", uzbek: "Qalaysiz?", direction: "en-uz", acceptedAnswers: ["qalaysiz", "yaxshimisiz", "ishlar qanday"] },
+      { id: "tr4", type: "translate", difficulty: "intermediate", points: 15, english: "I am a student", uzbek: "Men talabaman", direction: "en-uz", acceptedAnswers: ["men talabaman", "men o'quvchiman", "talabaman"] },
+      { id: "tr5", type: "translate", difficulty: "intermediate", points: 15, english: "Where is the library?", uzbek: "Kutubxona qayerda?", direction: "en-uz", acceptedAnswers: ["kutubxona qayerda", "kutubxona qaerda", "kutubxona qayerda joylashgan"] },
+      { id: "tr6", type: "translate", difficulty: "intermediate", points: 15, english: "I like this book", uzbek: "Menga bu kitob yoqadi", direction: "en-uz", acceptedAnswers: ["menga bu kitob yoqadi", "bu kitob menga yoqadi", "men bu kitobni yoqtiraman"] },
+      { id: "tr7", type: "translate", difficulty: "advanced", points: 20, english: "I have been learning English for 3 years", uzbek: "Men 3 yildan beri ingliz tilini o'rganyapman", direction: "en-uz", acceptedAnswers: ["men 3 yildan beri ingliz tilini o'rganyapman", "3 yildan beri ingliz tili o'rganyapman"] },
+      { id: "tr8", type: "translate", difficulty: "advanced", points: 20, english: "Could you help me, please?", uzbek: "Iltimos, menga yordam bera olasizmi?", direction: "en-uz", acceptedAnswers: ["iltimos menga yordam bera olasizmi", "menga yordam bering iltimos", "yordam bera olasizmi"] },
+      // Uzbek to English
+      { id: "tr9", type: "translate", difficulty: "beginner", points: 10, english: "Good morning", uzbek: "Xayrli tong", direction: "uz-en", acceptedAnswers: ["good morning", "good morning!"] },
+      { id: "tr10", type: "translate", difficulty: "beginner", points: 10, english: "Please", uzbek: "Iltimos", direction: "uz-en", acceptedAnswers: ["please", "please!"] },
+      { id: "tr11", type: "translate", difficulty: "intermediate", points: 15, english: "I am learning English", uzbek: "Men ingliz tilini o'rganyapman", direction: "uz-en", acceptedAnswers: ["i am learning english", "i'm learning english", "i learn english"] },
+      { id: "tr12", type: "translate", difficulty: "intermediate", points: 15, english: "What time is it?", uzbek: "Soat necha?", direction: "uz-en", acceptedAnswers: ["what time is it", "what time is it?", "what's the time"] },
+      { id: "tr13", type: "translate", difficulty: "advanced", points: 20, english: "I would like to visit London", uzbek: "Men Londonga borishni xohlayman", direction: "uz-en", acceptedAnswers: ["i would like to visit london", "i want to visit london", "i'd like to visit london"] },
+      { id: "tr14", type: "translate", difficulty: "advanced", points: 20, english: "She has already finished her homework", uzbek: "U allaqachon uy vazifasini tugatdi", direction: "uz-en", acceptedAnswers: ["she has already finished her homework", "she already finished her homework", "she's already finished her homework"] },
     ],
   },
   {
     id: "sentences",
-    title: "Предложения",
+    title: "Sentences",
     titleUz: "Gaplar",
-    description: "Построение предложений",
+    description: "Sentence structure practice",
     icon: "MessageSquare",
     color: "bg-gradient-to-br from-pink-500 to-rose-600",
     exercises: [
-      { id: "s1", type: "fill", difficulty: "beginner", points: 10, sentence: "Меня ___ Алишер.", answer: "зовут", hint: "ismim", uzbek: "Mening ismim Alisher.", explanation: "«Меня зовут» = Mening ismim" },
-      { id: "s2", type: "fill", difficulty: "beginner", points: 10, sentence: "Я ___ из Узбекистана.", answer: "приехал", hint: "keldim", uzbek: "Men O'zbekistondan keldim.", explanation: "Приехать - kelmoq" },
-      { id: "s3", type: "fill", difficulty: "beginner", points: 10, sentence: "Сегодня ___ погода.", answer: "хорошая", hint: "yaxshi", uzbek: "Bugun ob-havo yaxshi.", explanation: "Хороший - yaxshi" },
-      { id: "s4", type: "fill", difficulty: "intermediate", points: 15, sentence: "Мне нужно ___ домашнее задание.", answer: "сделать", hint: "bajarish", uzbek: "Men uy vazifasini bajarishim kerak.", explanation: "Сделать домашнее задание - uy vazifasini bajarmoq" },
-      { id: "s5", type: "fill", difficulty: "intermediate", points: 15, sentence: "Вы ___ по-русски?", answer: "говорите", hint: "gaplashasizmi", uzbek: "Siz ruscha gaplashasizmi?", explanation: "Говорить - gapirmoq" },
-      { id: "s6", type: "fill", difficulty: "intermediate", points: 15, sentence: "Он хорошо ___ математику.", answer: "знает", hint: "biladi", uzbek: "U matematikani yaxshi biladi.", explanation: "Знать - bilmoq" },
-      { id: "s7", type: "fill", difficulty: "advanced", points: 20, sentence: "Если бы я ___ больше времени, я бы прочитал эту книгу.", answer: "имел", hint: "bo'lganida", uzbek: "Agar ko'proq vaqtim bo'lganida, bu kitobni o'qigan bo'lardim.", explanation: "Условное наклонение - shart mayli" },
-      { id: "s8", type: "fill", difficulty: "advanced", points: 20, sentence: "Несмотря на трудности, студенты ___ сдали экзамен.", answer: "успешно", hint: "muvaffaqiyatli", uzbek: "Qiyinchiliklarga qaramay, talabalar imtihonni muvaffaqiyatli topshirdilar.", explanation: "Успешно - muvaffaqiyatli" },
-      { id: "s9", type: "choice", difficulty: "beginner", points: 10, question: "Правильный порядок слов:", options: ["Читаю я книгу", "Я книгу читаю", "Я читаю книгу", "Книгу я читаю"], correct: 2, uzbek: "Men kitob o'qiyman", explanation: "Стандартный порядок: Подлежащее + Сказуемое + Дополнение" },
-      { id: "s10", type: "choice", difficulty: "intermediate", points: 15, question: "Какой вариант правильный?", options: ["Мне нравится музыка", "Я нравлюсь музыка", "Музыка нравится мне", "Я нравится музыке"], correct: 0, uzbek: "Menga musiqa yoqadi", explanation: "Конструкция: Кому + нравится + что" },
-      { id: "s11", type: "choice", difficulty: "advanced", points: 20, question: "Выберите правильное продолжение: «Чем больше я учусь, ...»", options: ["тем больше я знаю", "тогда больше я знаю", "потому что больше я знаю", "если больше я знаю"], correct: 0, uzbek: "Qanchalik ko'p o'qisam, shunchalik ko'p bilaman", explanation: "Конструкция: Чем..., тем..." },
+      { id: "s1", type: "fill", difficulty: "beginner", points: 10, sentence: "My name ___ John.", answer: "is", hint: "bo'lmoq", uzbek: "Mening ismim Jon.", explanation: "Be verb: I am, you are, he/she/it is" },
+      { id: "s2", type: "fill", difficulty: "beginner", points: 10, sentence: "I ___ from Uzbekistan.", answer: "am", hint: "bo'lmoq", uzbek: "Men O'zbekistondanman.", explanation: "I am = Men ...man" },
+      { id: "s3", type: "fill", difficulty: "beginner", points: 10, sentence: "The weather ___ nice today.", answer: "is", hint: "bo'lmoq", uzbek: "Bugun ob-havo yaxshi.", explanation: "The weather is... (3rd person singular)" },
+      { id: "s4", type: "fill", difficulty: "intermediate", points: 15, sentence: "I ___ never been to Paris.", answer: "have", hint: "Present Perfect", uzbek: "Men hech qachon Parijda bo'lmaganman.", explanation: "Present Perfect: have/has + past participle" },
+      { id: "s5", type: "fill", difficulty: "intermediate", points: 15, sentence: "___ you speak English?", answer: "Do", hint: "savol", uzbek: "Siz inglizcha gaplasasizmi?", explanation: "Questions in Present Simple: Do/Does + subject + base verb" },
+      { id: "s6", type: "fill", difficulty: "intermediate", points: 15, sentence: "She ___ reading when I called.", answer: "was", hint: "Past Continuous", uzbek: "Men qo'ng'iroq qilganimda u kitob o'qiyotgan edi.", explanation: "Past Continuous: was/were + verb-ing" },
+      { id: "s7", type: "fill", difficulty: "advanced", points: 20, sentence: "If I ___ rich, I would travel the world.", answer: "were", hint: "shart gap", uzbek: "Agar men boy bo'lganimda, dunyoni sayohat qilardim.", explanation: "Second Conditional: If + past simple, would + base verb" },
+      { id: "s8", type: "fill", difficulty: "advanced", points: 20, sentence: "By next year, I ___ graduated from university.", answer: "will have", hint: "Future Perfect", uzbek: "Kelasi yilga men universitetni tamomlagan bo'laman.", explanation: "Future Perfect: will have + past participle" },
+      { id: "s9", type: "choice", difficulty: "beginner", points: 10, question: "Choose the correct word order:", options: ["Read I books", "I books read", "I read books", "Books I read"], correct: 2, uzbek: "Men kitob o'qiyman", explanation: "English word order: Subject + Verb + Object" },
+      { id: "s10", type: "choice", difficulty: "intermediate", points: 15, question: "Which sentence is correct?", options: ["She don't like coffee", "She doesn't likes coffee", "She doesn't like coffee", "She not like coffee"], correct: 2, uzbek: "U qahvani yoqtirmaydi", explanation: "Negative: doesn't + base verb (not doesn't + verb-s)" },
+      { id: "s11", type: "choice", difficulty: "advanced", points: 20, question: "Choose the correct sentence:", options: ["If I will have time, I will help you", "If I have time, I will help you", "If I have time, I help you", "If I had time, I will help you"], correct: 1, uzbek: "Agar vaqtim bo'lsa, sizga yordam beraman", explanation: "First Conditional: If + present simple, will + base verb" },
     ],
   },
 ];
 
 export const getDifficultyLabel = (difficulty: string): string => {
   switch (difficulty) {
-    case "beginner": return "Boshlang'ich";
-    case "intermediate": return "O'rta";
-    case "advanced": return "Yuqori";
+    case "beginner": return "Beginner";
+    case "intermediate": return "Intermediate";
+    case "advanced": return "Advanced";
     default: return difficulty;
   }
 };
