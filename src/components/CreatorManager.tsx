@@ -20,7 +20,10 @@ const adminApiCall = async (action: string, data: any = {}) => {
     `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-creators`,
     {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+      },
       body: JSON.stringify({
         password: sessionStorage.getItem("admin_password"),
         action,

@@ -35,9 +35,12 @@ const AdminDashboard = () => {
       `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-tests`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
         body: JSON.stringify({
-          password: localStorage.getItem("adminPassword"),
+          password: sessionStorage.getItem("admin_password"),
           action: "list",
         }),
       }
@@ -53,9 +56,12 @@ const AdminDashboard = () => {
       `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-tests`,
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY}`,
+        },
         body: JSON.stringify({
-          password: localStorage.getItem("adminPassword"),
+          password: sessionStorage.getItem("admin_password"),
           action: "delete",
           testId,
         }),
