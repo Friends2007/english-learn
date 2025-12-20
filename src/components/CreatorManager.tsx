@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { toast } from "sonner";
-import { Plus, Trash2, Upload, Send } from "lucide-react";
+import { Plus, Trash2, Send } from "lucide-react";
 
 interface Creator {
   id: string;
@@ -14,6 +14,22 @@ interface Creator {
   image_url: string | null;
   telegram_link: string | null;
 }
+
+const adminApiCall = async (action: string, data: any = {}) => {
+  const response = await fetch(
+    `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/admin-creators`,
+    {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        password: localStorage.getItem("adminPassword"),
+        action,
+        ...data,
+      }),
+    }
+  );
+  return response.json();
+};
 
 const CreatorManager = () => {
   const [creators, setCreators] = useState<Creator[]>([]);
@@ -26,13 +42,9 @@ const CreatorManager = () => {
   const [saving, setSaving] = useState(false);
 
   const fetchCreators = async () => {
-    const { data, error } = await supabase
-      .from("creators")
-      .select("*")
-      .order("created_at", { ascending: true });
-
-    if (!error && data) {
-      setCreators(data);
+    const result = await adminApiCall("list");
+    if (result.success) {
+      setCreators(result.data || []);
     }
     setLoading(false);
   };
@@ -68,7 +80,7 @@ const CreatorManager = () => {
       if (imageFile) {
         const fileExt = imageFile.name.split(".").pop();
         const fileName = `${Date.now()}.${fileExt}`;
-        const { data: uploadData, error: uploadError } = await supabase.storage
+        const { error: uploadError } = await supabase.storage
           .from("creator-images")
           .upload(fileName, imageFile);
 
@@ -85,15 +97,17 @@ const CreatorManager = () => {
         imageUrl = urlData.publicUrl;
       }
 
-      // Insert creator
-      const { error: insertError } = await supabase.from("creators").insert({
-        name: name.trim(),
-        image_url: imageUrl,
-        telegram_link: telegramLink.trim() || null,
+      // Insert creator via edge function
+      const result = await adminApiCall("create", {
+        creatorData: {
+          name: name.trim(),
+          image_url: imageUrl,
+          telegram_link: telegramLink.trim() || null,
+        },
       });
 
-      if (insertError) {
-        toast.error("Failed to add team member");
+      if (!result.success) {
+        toast.error(result.error || "Failed to add team member");
         setSaving(false);
         return;
       }
@@ -113,10 +127,10 @@ const CreatorManager = () => {
   };
 
   const handleDelete = async (id: string) => {
-    const { error } = await supabase.from("creators").delete().eq("id", id);
+    const result = await adminApiCall("delete", { creatorId: id });
     
-    if (error) {
-      toast.error("Failed to delete team member");
+    if (!result.success) {
+      toast.error(result.error || "Failed to delete team member");
       return;
     }
 
