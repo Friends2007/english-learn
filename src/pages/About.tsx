@@ -88,6 +88,36 @@ const About = () => {
           </Card>
         </div>
 
+        {/* Teacher Section */}
+        <div className="mb-12">
+          <h2 className="text-2xl font-bold text-center mb-8">Ustozimiz</h2>
+          <Card className="max-w-md mx-auto text-center p-8 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
+            <CardContent className="pt-4">
+              <Avatar className="w-32 h-32 mx-auto mb-6 ring-4 ring-primary/20">
+                <AvatarImage src="" alt="Ustoz" />
+                <AvatarFallback className="text-3xl bg-primary/10">U</AvatarFallback>
+              </Avatar>
+              <h3 className="font-bold text-xl mb-2">Ustoz Ismi</h3>
+              <p className="text-muted-foreground mb-4">Ingliz tili o'qituvchisi</p>
+              <Button
+                variant="outline"
+                size="sm"
+                asChild
+                className="gap-2"
+              >
+                <a
+                  href="https://t.me/username"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <Send className="w-4 h-4" />
+                  Telegram
+                </a>
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
+
         {/* Creators Section */}
         <div className="mb-12">
           <h2 className="text-2xl font-bold text-center mb-8">Our Team</h2>
