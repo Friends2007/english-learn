@@ -8,29 +8,29 @@ import { useEffect, useState } from "react";
 
 const sections = [
   {
-    title: "Словарь",
-    description: "Термины для горного дела и технологий",
+    title: "Vocabulary",
+    description: "English words and expressions for daily use",
     icon: BookOpen,
     path: "/vocabulary",
     color: "from-primary to-primary/80",
   },
   {
-    title: "Грамматика",
-    description: "Русский алфавит и грамматические правила",
+    title: "Grammar",
+    description: "English grammar rules and structures",
     icon: GraduationCap,
     path: "/grammar",
     color: "from-secondary to-secondary/80",
   },
   {
-    title: "Упражнения",
-    description: "Заполнение пропусков и выбор ответа",
+    title: "Exercises",
+    description: "Fill in the blanks and multiple choice",
     icon: PenTool,
     path: "/exercises",
     color: "from-primary to-primary/80",
   },
   {
-    title: "Тесты",
-    description: "Тесты по каждой теме с результатами",
+    title: "Tests",
+    description: "Tests for each topic with results",
     icon: FileCheck,
     path: "/tests",
     color: "from-secondary to-secondary/80",
@@ -39,21 +39,21 @@ const sections = [
 
 // Floating elements for background
 const floatingElements = [
-  { text: "А", top: "10%", left: "5%", delay: "0s", size: "text-6xl" },
-  { text: "Б", top: "20%", left: "85%", delay: "2s", size: "text-5xl" },
-  { text: "В", top: "60%", left: "10%", delay: "4s", size: "text-4xl" },
-  { text: "Г", top: "70%", left: "90%", delay: "6s", size: "text-5xl" },
-  { text: "дом", top: "30%", left: "15%", delay: "3s", size: "text-3xl" },
-  { text: "книга", top: "80%", left: "75%", delay: "5s", size: "text-2xl" },
-  { text: "язык", top: "15%", left: "70%", delay: "1s", size: "text-3xl" },
+  { text: "A", top: "10%", left: "5%", delay: "0s", size: "text-6xl" },
+  { text: "B", top: "20%", left: "85%", delay: "2s", size: "text-5xl" },
+  { text: "C", top: "60%", left: "10%", delay: "4s", size: "text-4xl" },
+  { text: "D", top: "70%", left: "90%", delay: "6s", size: "text-5xl" },
+  { text: "hello", top: "30%", left: "15%", delay: "3s", size: "text-3xl" },
+  { text: "world", top: "80%", left: "75%", delay: "5s", size: "text-2xl" },
+  { text: "learn", top: "15%", left: "70%", delay: "1s", size: "text-3xl" },
   { text: "?", top: "50%", left: "5%", delay: "7s", size: "text-5xl" },
   { text: "!", top: "40%", left: "92%", delay: "8s", size: "text-4xl" },
-  { text: "Д", top: "85%", left: "20%", delay: "9s", size: "text-4xl" },
+  { text: "E", top: "85%", left: "20%", delay: "9s", size: "text-4xl" },
 ];
 
 const Index = () => {
   const [typedText, setTypedText] = useState("");
-  const fullText = "легко";
+  const fullText = "easily";
   
   useEffect(() => {
     let index = 0;
@@ -78,7 +78,7 @@ const Index = () => {
         {/* Animated Gradient Background */}
         <div className="absolute inset-0 animated-gradient opacity-50" />
         
-        {/* Floating Russian Letters */}
+        {/* Floating English Letters */}
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
           {floatingElements.map((el, index) => (
             <div
@@ -108,12 +108,12 @@ const Index = () => {
             {/* Badge */}
             <div className="mb-6 inline-flex items-center gap-2 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 px-5 py-2.5 text-sm font-medium text-primary animate-fade-in shadow-lg">
               <Sparkles className="h-4 w-4 animate-pulse" />
-              Не забудьте выполнить ежедневные упражнения!
+              Don't forget to practice daily!
             </div>
             
             {/* Main Title with Typing Effect */}
             <h1 className="mb-6 text-4xl font-extrabold tracking-tight text-foreground md:text-6xl animate-fade-in" style={{ animationDelay: "100ms" }}>
-              Изучайте русский язык{" "}
+              Learn English{" "}
               <span className="relative inline-block">
                 <span className="text-primary">
                   {typedText}
@@ -124,7 +124,7 @@ const Index = () => {
             
             {/* Subtitle */}
             <p className="mb-10 text-lg md:text-xl text-muted-foreground animate-fade-in leading-relaxed" style={{ animationDelay: "200ms" }}>
-              Учите русский язык быстро и эффективно с интерактивными уроками, карточками слов и упражнениями
+              Learn English quickly and effectively with interactive lessons, flashcards, and exercises
             </p>
             
             {/* CTA Button with Glow */}
@@ -136,7 +136,7 @@ const Index = () => {
                 style={{ animationDelay: "300ms" }}
               >
                 <Sparkles className="h-5 w-5 mr-2" />
-                Начать обучение
+                Start Learning
                 <ChevronRight className="h-5 w-5 ml-2" />
               </Button>
             </Link>
@@ -149,7 +149,7 @@ const Index = () => {
 
         {/* Sections Grid */}
         <section>
-          <h2 className="mb-6 text-2xl font-bold text-foreground">Разделы</h2>
+          <h2 className="mb-6 text-2xl font-bold text-foreground">Sections</h2>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {sections.map((section, index) => {
               const Icon = section.icon;
@@ -177,7 +177,7 @@ const Index = () => {
                     <h3 className="mb-2 text-xl font-bold">{section.title}</h3>
                     <p className="text-sm opacity-90 mb-4">{section.description}</p>
                     <div className="flex items-center gap-1 text-sm font-medium">
-                      <span>Начать</span>
+                      <span>Start</span>
                       <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-2" />
                     </div>
                   </div>
@@ -193,15 +193,15 @@ const Index = () => {
 
         {/* Quick Info */}
         <section className="mt-12 rounded-2xl glass-section p-6 hover:shadow-glow transition-all duration-300">
-          <h3 className="text-xl font-bold text-foreground mb-4">О приложении</h3>
+          <h3 className="text-xl font-bold text-foreground mb-4">About the App</h3>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
               <div className="rounded-lg bg-primary/20 backdrop-blur-sm p-2.5 text-primary transition-transform duration-300 hover:scale-110 border border-primary/20">
                 <BookOpen className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-semibold text-foreground">Большой словарь</h4>
-                <p className="text-sm text-muted-foreground">100+ слов и выражений</p>
+                <h4 className="font-semibold text-foreground">Large Vocabulary</h4>
+                <p className="text-sm text-muted-foreground">200+ words and expressions</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
@@ -209,8 +209,8 @@ const Index = () => {
                 <PenTool className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-semibold text-foreground">Упражнения</h4>
-                <p className="text-sm text-muted-foreground">Практические задания</p>
+                <h4 className="font-semibold text-foreground">Exercises</h4>
+                <p className="text-sm text-muted-foreground">Practical assignments</p>
               </div>
             </div>
             <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
@@ -218,8 +218,8 @@ const Index = () => {
                 <FileCheck className="h-5 w-5" />
               </div>
               <div>
-                <h4 className="font-semibold text-foreground">Интерактивные тесты</h4>
-                <p className="text-sm text-muted-foreground">Проверка знаний</p>
+                <h4 className="font-semibold text-foreground">Interactive Tests</h4>
+                <p className="text-sm text-muted-foreground">Knowledge check</p>
               </div>
             </div>
           </div>
@@ -230,7 +230,7 @@ const Index = () => {
       <footer className="border-t border-border/30 bg-card/50 py-8 mt-12">
         <div className="container mx-auto px-4 text-center">
           <p className="text-sm text-muted-foreground">
-            © 2024 Русский язык - Приложение для изучения русского языка
+            © 2024 English Learning - Application for learning English
           </p>
         </div>
       </footer>

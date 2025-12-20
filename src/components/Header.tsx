@@ -6,11 +6,11 @@ import { cn } from "@/lib/utils";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navLinks = [
-  { path: "/", label: "Главная" },
-  { path: "/vocabulary", label: "Словарь" },
-  { path: "/grammar", label: "Грамматика" },
-  { path: "/exercises", label: "Упражнения" },
-  { path: "/tests", label: "Тесты" },
+  { path: "/", label: "Home" },
+  { path: "/vocabulary", label: "Vocabulary" },
+  { path: "/grammar", label: "Grammar" },
+  { path: "/exercises", label: "Exercises" },
+  { path: "/tests", label: "Tests" },
 ];
 
 export function Header() {
@@ -24,7 +24,7 @@ export function Header() {
           <div className="flex h-10 w-10 items-center justify-center rounded-xl gradient-button text-white shadow-glow">
             <BookOpen className="h-5 w-5" />
           </div>
-          <span className="text-xl font-bold text-foreground">Русский язык</span>
+          <span className="text-xl font-bold text-foreground">English Learning</span>
         </Link>
         
         <nav className="hidden items-center gap-1 md:flex">
