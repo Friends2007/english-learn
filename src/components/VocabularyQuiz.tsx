@@ -9,7 +9,7 @@ interface VocabularyQuizProps {
   onBack: () => void;
 }
 
-type QuizMode = "ru-uz" | "uz-ru";
+type QuizMode = "en-uz" | "uz-en";
 
 interface Question {
   word: Word;
@@ -18,7 +18,7 @@ interface Question {
 }
 
 export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
-  const [mode, setMode] = useState<QuizMode>("ru-uz");
+  const [mode, setMode] = useState<QuizMode>("en-uz");
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
 
   const speak = (text: string) => {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "ru-RU";
+    utterance.lang = "en-US";
     speechSynthesis.speak(utterance);
   };
 
@@ -37,12 +37,12 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
     const shuffled = words.sort(() => Math.random() - 0.5).slice(0, Math.min(10, words.length));
     
     const newQuestions: Question[] = shuffled.map((word) => {
-      const correctAnswer = mode === "ru-uz" ? word.uzbek : word.russian;
+      const correctAnswer = mode === "en-uz" ? word.uzbek : word.english;
       const otherWords = category.words
-        .filter((w) => w.russian !== word.russian)
+        .filter((w) => w.english !== word.english)
         .sort(() => Math.random() - 0.5)
         .slice(0, 3)
-        .map((w) => (mode === "ru-uz" ? w.uzbek : w.russian));
+        .map((w) => (mode === "en-uz" ? w.uzbek : w.english));
       
       const options = [...otherWords, correctAnswer].sort(() => Math.random() - 0.5);
       
@@ -89,7 +89,7 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
     return (
       <div className="animate-fade-in">
         <button onClick={onBack} className="mb-6 flex items-center gap-2 text-primary hover:underline">
-          ← Вернуться к категориям
+          ← Back to categories
         </button>
         
         <div className="glass-section rounded-2xl p-8 text-center max-w-md mx-auto">
@@ -98,17 +98,17 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
             percentage >= 80 ? "text-yellow-500" : percentage >= 50 ? "text-primary" : "text-muted-foreground"
           )} />
           
-          <h2 className="text-2xl font-bold text-foreground mb-2">Результат</h2>
+          <h2 className="text-2xl font-bold text-foreground mb-2">Results</h2>
           <p className="text-4xl font-bold text-primary mb-2">{score} / {questions.length}</p>
-          <p className="text-muted-foreground mb-6">{percentage}% правильных ответов</p>
+          <p className="text-muted-foreground mb-6">{percentage}% correct answers</p>
           
-          {percentage >= 80 && <p className="text-green-500 font-medium mb-4">Отлично! 🎉</p>}
-          {percentage >= 50 && percentage < 80 && <p className="text-yellow-500 font-medium mb-4">Хороший результат! 👍</p>}
-          {percentage < 50 && <p className="text-orange-500 font-medium mb-4">Попробуйте ещё раз! 💪</p>}
+          {percentage >= 80 && <p className="text-green-500 font-medium mb-4">Excellent! 🎉</p>}
+          {percentage >= 50 && percentage < 80 && <p className="text-yellow-500 font-medium mb-4">Good result! 👍</p>}
+          {percentage < 50 && <p className="text-orange-500 font-medium mb-4">Keep practicing! 💪</p>}
           
           <Button onClick={generateQuestions} className="w-full gap-2">
             <RotateCcw className="h-4 w-4" />
-            Начать заново
+            Try Again
           </Button>
         </div>
       </div>
@@ -116,13 +116,13 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
   }
 
   if (!currentQuestion) {
-    return <div className="text-center text-muted-foreground">Загрузка...</div>;
+    return <div className="text-center text-muted-foreground">Loading...</div>;
   }
 
   return (
     <div className="animate-fade-in">
       <button onClick={onBack} className="mb-6 flex items-center gap-2 text-primary hover:underline">
-        ← Вернуться к категориям
+        ← Back to categories
       </button>
 
       <div className="mb-6 flex items-center justify-between">
@@ -132,24 +132,24 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
           </div>
           <div>
             <h2 className="text-xl font-bold text-foreground">{category.name}</h2>
-            <p className="text-sm text-muted-foreground">Викторина</p>
+            <p className="text-sm text-muted-foreground">Quiz</p>
           </div>
         </div>
         
         <div className="flex gap-2">
           <Button
             size="sm"
-            variant={mode === "ru-uz" ? "default" : "outline"}
-            onClick={() => setMode("ru-uz")}
+            variant={mode === "en-uz" ? "default" : "outline"}
+            onClick={() => setMode("en-uz")}
           >
-            RU → UZ
+            EN → UZ
           </Button>
           <Button
             size="sm"
-            variant={mode === "uz-ru" ? "default" : "outline"}
-            onClick={() => setMode("uz-ru")}
+            variant={mode === "uz-en" ? "default" : "outline"}
+            onClick={() => setMode("uz-en")}
           >
-            UZ → RU
+            UZ → EN
           </Button>
         </div>
       </div>
@@ -157,10 +157,10 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
       <div className="glass-section rounded-2xl p-6 mb-6">
         <div className="flex justify-between items-center mb-4">
           <span className="text-sm text-muted-foreground">
-            Вопрос {currentIndex + 1} из {questions.length}
+            Question {currentIndex + 1} of {questions.length}
           </span>
           <span className="text-sm font-medium text-primary">
-            Счёт: {score}
+            Score: {score}
           </span>
         </div>
         
@@ -174,19 +174,19 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
         <div className="text-center mb-8">
           <div className="flex items-center justify-center gap-3 mb-2">
             <p className="text-2xl font-bold text-foreground">
-              {mode === "ru-uz" ? currentQuestion.word.russian : currentQuestion.word.uzbek}
+              {mode === "en-uz" ? currentQuestion.word.english : currentQuestion.word.uzbek}
             </p>
-            {mode === "ru-uz" && (
+            {mode === "en-uz" && (
               <button
-                onClick={() => speak(currentQuestion.word.russian)}
+                onClick={() => speak(currentQuestion.word.english)}
                 className="rounded-full bg-primary/10 p-2 text-primary transition-colors hover:bg-primary/20"
               >
                 <Volume2 className="h-4 w-4" />
               </button>
             )}
           </div>
-          {mode === "ru-uz" && (
-            <p className="text-sm text-muted-foreground">({currentQuestion.word.pronunciation})</p>
+          {mode === "en-uz" && (
+            <p className="text-sm text-muted-foreground">{currentQuestion.word.pronunciation}</p>
           )}
         </div>
 
@@ -223,7 +223,7 @@ export const VocabularyQuiz = ({ category, onBack }: VocabularyQuizProps) => {
 
       {isAnswered && (
         <Button onClick={handleNext} className="w-full">
-          {currentIndex < questions.length - 1 ? "Следующий вопрос" : "Показать результат"}
+          {currentIndex < questions.length - 1 ? "Next Question" : "Show Results"}
         </Button>
       )}
     </div>

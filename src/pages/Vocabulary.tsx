@@ -17,7 +17,7 @@ const Vocabulary = () => {
 
   const speak = (text: string) => {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = "ru-RU";
+    utterance.lang = "en-US";
     speechSynthesis.speak(utterance);
   };
 
@@ -25,7 +25,7 @@ const Vocabulary = () => {
   
   const filteredWords = currentCategory?.words.filter(
     (word) =>
-      word.russian.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      word.english.toLowerCase().includes(searchQuery.toLowerCase()) ||
       word.uzbek.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
@@ -41,8 +41,8 @@ const Vocabulary = () => {
       
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2">Словарь</h1>
-          <p className="text-muted-foreground">Термины для горного дела и технологий</p>
+          <h1 className="text-3xl font-bold text-foreground mb-2">Vocabulary</h1>
+          <p className="text-muted-foreground">English-Uzbek dictionary for everyday use</p>
         </div>
 
         {!selectedCategory ? (
@@ -62,7 +62,7 @@ const Vocabulary = () => {
                 </div>
                 <div className="flex-1">
                   <h3 className="text-lg font-semibold text-foreground">{category.name}</h3>
-                  <p className="text-sm text-muted-foreground">{category.words.length} слов</p>
+                  <p className="text-sm text-muted-foreground">{category.words.length} words</p>
                 </div>
                 <ChevronRight className="h-5 w-5 text-muted-foreground transition-transform group-hover:translate-x-1" />
               </button>
@@ -76,7 +76,7 @@ const Vocabulary = () => {
               onClick={handleBack}
               className="mb-6 flex items-center gap-2 text-primary hover:underline"
             >
-              ← Вернуться к категориям
+              ← Back to categories
             </button>
 
             <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -95,7 +95,7 @@ const Vocabulary = () => {
                   className="gap-2"
                 >
                   <BookOpen className="h-4 w-4" />
-                  Список
+                  List
                 </Button>
                 <Button
                   size="sm"
@@ -104,7 +104,7 @@ const Vocabulary = () => {
                   className="gap-2"
                 >
                   <Gamepad2 className="h-4 w-4" />
-                  Викторина
+                  Quiz
                 </Button>
               </div>
             </div>
@@ -112,7 +112,7 @@ const Vocabulary = () => {
             <div className="relative mb-6">
               <Search className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-muted-foreground" />
               <Input
-                placeholder="Поиск слова..."
+                placeholder="Search word..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 className="pl-12 h-12 rounded-xl"
@@ -122,28 +122,28 @@ const Vocabulary = () => {
             <div className="space-y-3">
               {filteredWords?.map((word, index) => (
                 <div
-                  key={word.russian}
+                  key={word.english}
                   className={cn(
                     "rounded-2xl glass-section p-4 transition-all duration-300 animate-fade-in",
-                    expandedWord === word.russian && "shadow-card"
+                    expandedWord === word.english && "shadow-card"
                   )}
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div
                     className="flex items-center justify-between cursor-pointer"
-                    onClick={() => setExpandedWord(expandedWord === word.russian ? null : word.russian)}
+                    onClick={() => setExpandedWord(expandedWord === word.english ? null : word.english)}
                   >
                     <div className="flex-1">
                       <div className="flex items-center gap-3">
-                        <span className="text-xl font-bold text-foreground">{word.russian}</span>
-                        <span className="text-sm text-muted-foreground">({word.pronunciation})</span>
+                        <span className="text-xl font-bold text-foreground">{word.english}</span>
+                        <span className="text-sm text-muted-foreground">{word.pronunciation}</span>
                       </div>
                       <span className="text-lg text-primary font-medium">{word.uzbek}</span>
                     </div>
                     <button
                       onClick={(e) => {
                         e.stopPropagation();
-                        speak(word.russian);
+                        speak(word.english);
                       }}
                       className="rounded-full bg-primary/10 p-3 text-primary transition-colors hover:bg-primary/20"
                     >
@@ -151,9 +151,9 @@ const Vocabulary = () => {
                     </button>
                   </div>
                   
-                  {expandedWord === word.russian && (
+                  {expandedWord === word.english && (
                     <div className="mt-4 pt-4 border-t border-border animate-fade-in">
-                      <p className="text-sm font-medium text-muted-foreground mb-2">Пример:</p>
+                      <p className="text-sm font-medium text-muted-foreground mb-2">Example:</p>
                       <p className="text-foreground bg-muted/50 rounded-lg p-3">{word.example}</p>
                     </div>
                   )}
