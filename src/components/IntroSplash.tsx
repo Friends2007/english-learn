@@ -70,7 +70,7 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
           "text-4xl md:text-5xl font-bold text-foreground mb-4 transition-all duration-700",
           stage >= 2 ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
         )}>
-          Learn Russian
+          Learn English
         </h1>
 
         {/* Subtitle with typing effect */}
@@ -78,7 +78,7 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
           "text-xl text-muted-foreground transition-all duration-700",
           stage >= 3 ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
         )}>
-          Master Russian language — <span className="text-primary font-semibold">easily</span>
+          Master English language — <span className="text-primary font-semibold">easily</span>
         </p>
 
         {/* Loading dots */}
