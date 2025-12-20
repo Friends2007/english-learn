@@ -5,6 +5,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Send, Users, BookOpen, Target } from "lucide-react";
+import teacherImage from "@/assets/teacher.png";
 
 interface Creator {
   id: string;
@@ -90,30 +91,15 @@ const About = () => {
 
         {/* Teacher Section */}
         <div className="mb-12">
-          <h2 className="text-2xl font-bold text-center mb-8">Ustozimiz</h2>
+          <h2 className="text-2xl font-bold text-center mb-8">Teacher</h2>
           <Card className="max-w-md mx-auto text-center p-8 bg-gradient-to-br from-primary/5 to-primary/10 border-primary/20">
             <CardContent className="pt-4">
               <Avatar className="w-32 h-32 mx-auto mb-6 ring-4 ring-primary/20">
-                <AvatarImage src="" alt="Ustoz" />
-                <AvatarFallback className="text-3xl bg-primary/10">U</AvatarFallback>
+                <AvatarImage src={teacherImage} alt="Xusniddin Ochilov" />
+                <AvatarFallback className="text-3xl bg-primary/10">X</AvatarFallback>
               </Avatar>
-              <h3 className="font-bold text-xl mb-2">Ustoz Ismi</h3>
-              <p className="text-muted-foreground mb-4">Ingliz tili o'qituvchisi</p>
-              <Button
-                variant="outline"
-                size="sm"
-                asChild
-                className="gap-2"
-              >
-                <a
-                  href="https://t.me/username"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <Send className="w-4 h-4" />
-                  Telegram
-                </a>
-              </Button>
+              <h3 className="font-bold text-xl mb-2">Xusniddin Ochilov</h3>
+              <p className="text-muted-foreground">Ingliz tili o'qituvchisi</p>
             </CardContent>
           </Card>
         </div>
