@@ -11,6 +11,8 @@ import Index from "./pages/Index";
 import Vocabulary from "./pages/Vocabulary";
 import Grammar from "./pages/Grammar";
 import Exercises from "./pages/Exercises";
+import Listening from "./pages/Listening";
+import Reading from "./pages/Reading";
 import Tests from "./pages/Tests";
 import About from "./pages/About";
 import AdminAuth from "./pages/AdminAuth";
@@ -53,6 +55,8 @@ const App = () => {
                 <Route path="/vocabulary" element={<Vocabulary />} />
                 <Route path="/grammar" element={<Grammar />} />
                 <Route path="/exercises" element={<Exercises />} />
+                <Route path="/listening" element={<Listening />} />
+                <Route path="/reading" element={<Reading />} />
                 <Route path="/tests" element={<Tests />} />
                 <Route path="/about" element={<About />} />
                 <Route path="/admin" element={<AdminAuth />} />

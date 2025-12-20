@@ -10,6 +10,8 @@ const navLinks = [
   { path: "/vocabulary", label: "Vocabulary" },
   { path: "/grammar", label: "Grammar" },
   { path: "/exercises", label: "Exercises" },
+  { path: "/listening", label: "Listening" },
+  { path: "/reading", label: "Reading" },
   { path: "/tests", label: "Tests" },
   { path: "/about", label: "About" },
 ];
