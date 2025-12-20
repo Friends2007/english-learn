@@ -14,6 +14,33 @@ export type Database = {
   }
   public: {
     Tables: {
+      creators: {
+        Row: {
+          created_at: string
+          id: string
+          image_url: string | null
+          name: string
+          telegram_link: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name: string
+          telegram_link?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          name?: string
+          telegram_link?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       tests: {
         Row: {
           created_at: string
