@@ -22,7 +22,7 @@ const adminApiCall = async (action: string, data: any = {}) => {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        password: localStorage.getItem("adminPassword"),
+        password: sessionStorage.getItem("admin_password"),
         action,
         ...data,
       }),
