@@ -16,7 +16,7 @@ const AdminAuth = () => {
 
   useEffect(() => {
     if (!adminLoading && isAdmin) {
-      navigate("/tests");
+      navigate("/admin/dashboard");
     }
   }, [isAdmin, adminLoading, navigate]);
 
@@ -24,7 +24,7 @@ const AdminAuth = () => {
     e.preventDefault();
     
     if (!password) {
-      toast.error("Parolni kiriting");
+      toast.error("Please enter password");
       return;
     }
 
@@ -33,13 +33,13 @@ const AdminAuth = () => {
     try {
       const { success, error } = await login(password);
       if (success) {
-        toast.success("Tizimga kirdingiz!");
-        navigate("/tests");
+        toast.success("Logged in successfully!");
+        navigate("/admin/dashboard");
       } else {
-        toast.error(error || "Noto'g'ri parol");
+        toast.error(error || "Wrong password");
       }
     } catch (err) {
-      toast.error("Xatolik yuz berdi");
+      toast.error("An error occurred");
     } finally {
       setIsLoading(false);
     }
@@ -64,17 +64,17 @@ const AdminAuth = () => {
               <ShieldCheck className="h-8 w-8 text-primary" />
             </div>
             <h1 className="text-2xl font-bold text-foreground mb-2">
-              Admin paneli
+              Admin Panel
             </h1>
             <p className="text-muted-foreground">
-              Test yaratish va boshqarish uchun parolni kiriting
+              Enter password to manage content
             </p>
           </div>
 
           <div className="rounded-2xl bg-card p-6 shadow-card">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="password">Parol</Label>
+                <Label htmlFor="password">Password</Label>
                 <div className="relative">
                   <Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
@@ -93,7 +93,7 @@ const AdminAuth = () => {
                 {isLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin mr-2" />
                 ) : null}
-                Kirish
+                Login
               </Button>
             </form>
           </div>

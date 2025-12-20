@@ -12,7 +12,9 @@ import Vocabulary from "./pages/Vocabulary";
 import Grammar from "./pages/Grammar";
 import Exercises from "./pages/Exercises";
 import Tests from "./pages/Tests";
+import About from "./pages/About";
 import AdminAuth from "./pages/AdminAuth";
+import AdminDashboard from "./pages/AdminDashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,7 +54,9 @@ const App = () => {
                 <Route path="/grammar" element={<Grammar />} />
                 <Route path="/exercises" element={<Exercises />} />
                 <Route path="/tests" element={<Tests />} />
+                <Route path="/about" element={<About />} />
                 <Route path="/admin" element={<AdminAuth />} />
+                <Route path="/admin/dashboard" element={<AdminDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </BrowserRouter>

@@ -11,6 +11,7 @@ const navLinks = [
   { path: "/grammar", label: "Grammar" },
   { path: "/exercises", label: "Exercises" },
   { path: "/tests", label: "Tests" },
+  { path: "/about", label: "About" },
 ];
 
 export function Header() {
