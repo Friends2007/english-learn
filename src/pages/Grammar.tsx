@@ -3,8 +3,8 @@ import { Header } from "@/components/Header";
 import { BookOpen, ChevronDown, TableProperties, FileText, Zap, MessageSquare, User, LucideIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-// Case colors for distinct styling
-const caseColors = [
+// Colors for distinct styling
+const topicColors = [
   { bg: "bg-blue-500/10", border: "border-blue-500/30", text: "text-blue-600 dark:text-blue-400", accent: "bg-blue-500", ring: "ring-blue-500/20" },
   { bg: "bg-emerald-500/10", border: "border-emerald-500/30", text: "text-emerald-600 dark:text-emerald-400", accent: "bg-emerald-500", ring: "ring-emerald-500/20" },
   { bg: "bg-amber-500/10", border: "border-amber-500/30", text: "text-amber-600 dark:text-amber-400", accent: "bg-amber-500", ring: "ring-amber-500/20" },
@@ -21,262 +21,263 @@ const grammarTopics: Array<{
   content: Array<{ subtitle: string; rules: string[]; colorIndex?: number }>;
 }> = [
   {
-    id: "cases",
-    title: "Падежи",
-    icon: TableProperties,
-    iconColor: "text-blue-500",
-    content: [
-      {
-        subtitle: "Именительный падеж - Кто? Что?",
-        colorIndex: 0,
-        rules: [
-          "Используется как подлежащее в предложении",
-          "Например: Мальчик читает",
-          "Например: Книга лежит на столе",
-          "🔗 Предлоги: не используются (именительный падеж - начальная форма слова)",
-        ],
-      },
-      {
-        subtitle: "Родительный падеж - Кого? Чего?",
-        colorIndex: 1,
-        rules: [
-          "Обозначает принадлежность, отсутствие, количество",
-          "Мужской род: -а, -я. Например: брат → брата, учитель → учителя",
-          "Женский род: -ы, -и. Например: сестра → сестры, книга → книги",
-          "Например: У меня нет брата",
-          "🔗 Предлоги: без, для, до, из, из-за, из-под, кроме, от, около, после, ради, среди, у",
-        ],
-      },
-      {
-        subtitle: "Дательный падеж - Кому? Чему?",
-        colorIndex: 2,
-        rules: [
-          "Обозначает направление действия к кому/чему-либо",
-          "Мужской род: -у, -ю. Например: брат → брату, учитель → учителю",
-          "Женский род: -е. Например: сестра → сестре, мама → маме",
-          "Например: Я дал книгу брату",
-          "🔗 Предлоги: к, по, благодаря, вопреки, согласно, навстречу, подобно",
-        ],
-      },
-      {
-        subtitle: "Винительный падеж - Кого? Что?",
-        colorIndex: 3,
-        rules: [
-          "Используется как прямое дополнение",
-          "Одушевлённый мужской род: -а, -я (как родительный)",
-          "Неодушевлённый мужской род: не изменяется (как именительный)",
-          "Женский род: -у, -ю. Например: сестра → сестру, книга → книгу",
-          "Например: Я вижу брата",
-          "🔗 Предлоги: в, на, за, под, про, через, сквозь, несмотря на",
-        ],
-      },
-      {
-        subtitle: "Творительный падеж - Кем? Чем?",
-        colorIndex: 4,
-        rules: [
-          "Обозначает инструмент, совместность",
-          "Мужской род: -ом, -ем. Например: брат → братом, учитель → учителем",
-          "Женский род: -ой, -ей. Например: сестра → сестрой, книга → книгой",
-          "Например: Я пишу ручкой",
-          "🔗 Предлоги: с (со), за, под, над, перед, между, рядом с",
-        ],
-      },
-      {
-        subtitle: "Предложный падеж - О ком? О чём? Где?",
-        colorIndex: 5,
-        rules: [
-          "Используется только с предлогами (в, на, о, об)",
-          "Мужской род: -е. Например: брат → о брате, стол → на столе",
-          "Женский род: -е. Например: сестра → о сестре, книга → в книге",
-          "Например: Я думаю о маме",
-          "🔗 Предлоги: в, на, о (об, обо), при",
-        ],
-      },
-    ],
-  },
-  {
-    id: "nouns",
-    title: "Существительные",
-    icon: FileText,
-    iconColor: "text-green-500",
-    content: [
-      {
-        subtitle: "Род существительных",
-        colorIndex: 0,
-        rules: [
-          "Мужской род: оканчивается на согласную или -й. Например: стол, дом, мальчик",
-          "Женский род: оканчивается на -а, -я, -ь. Например: мама, земля, ночь",
-          "Средний род: оканчивается на -о, -е. Например: окно, море, солнце",
-        ],
-      },
-      {
-        subtitle: "Множественное число",
-        colorIndex: 1,
-        rules: [
-          "Мужской и женский род: добавляется -ы, -и. Например: стол → столы, книга → книги",
-          "Средний род: меняется на -а, -я. Например: окно → окна, море → моря",
-          "Исключения: человек → люди, ребёнок → дети",
-        ],
-      },
-    ],
-  },
-  {
-    id: "verbs",
-    title: "Глаголы",
+    id: "tenses",
+    title: "Verb Tenses",
     icon: Zap,
     iconColor: "text-orange-500",
     content: [
       {
-        subtitle: "Настоящее время",
-        colorIndex: 2,
+        subtitle: "Present Simple - I do / He does",
+        colorIndex: 0,
         rules: [
-          "Я: -ю, -у. Например: я читаю, я пишу",
-          "Ты: -ешь, -ишь. Например: ты читаешь, ты пишешь",
-          "Он/она: -ет, -ит. Например: он читает, она пишет",
-          "Мы: -ем, -им. Например: мы читаем, мы пишем",
-          "Вы: -ете, -ите. Например: вы читаете, вы пишете",
-          "Они: -ют, -ут, -ат, -ят. Например: они читают, они пишут",
+          "Used for habits, routines, and general truths",
+          "Add -s/-es for he/she/it: He works, She watches",
+          "Example: I go to school every day",
+          "Example: The sun rises in the east",
+          "Negative: I don't / He doesn't + base verb",
+          "Question: Do you...? / Does he...?",
         ],
       },
       {
-        subtitle: "Прошедшее время",
+        subtitle: "Present Continuous - I am doing",
+        colorIndex: 1,
+        rules: [
+          "Used for actions happening now or temporary situations",
+          "Form: am/is/are + verb-ing",
+          "Example: I am reading a book right now",
+          "Example: She is working in London this month",
+          "Negative: I am not / He is not + verb-ing",
+          "Question: Are you working? Is she studying?",
+        ],
+      },
+      {
+        subtitle: "Past Simple - I did",
+        colorIndex: 2,
+        rules: [
+          "Used for completed actions in the past",
+          "Regular verbs: add -ed (worked, played)",
+          "Irregular verbs: go→went, see→saw, have→had",
+          "Example: I visited London last year",
+          "Negative: I didn't + base verb",
+          "Question: Did you go? Did she see?",
+        ],
+      },
+      {
+        subtitle: "Present Perfect - I have done",
         colorIndex: 3,
         rules: [
-          "Мужской род: -л. Например: он читал",
-          "Женский род: -ла. Например: она читала",
-          "Средний род: -ло. Например: оно читало",
-          "Множественное число: -ли. Например: они читали",
+          "Used for past actions with present relevance",
+          "Form: have/has + past participle",
+          "Example: I have lived here for 5 years",
+          "Example: She has just finished her homework",
+          "Keywords: just, already, yet, ever, never, for, since",
+          "Negative: I haven't / He hasn't + past participle",
+        ],
+      },
+      {
+        subtitle: "Future Simple - I will do",
+        colorIndex: 4,
+        rules: [
+          "Used for predictions, promises, and spontaneous decisions",
+          "Form: will + base verb",
+          "Example: I will help you tomorrow",
+          "Example: It will rain later",
+          "Negative: I won't (will not) + base verb",
+          "Alternative: going to + base verb for plans",
         ],
       },
     ],
   },
   {
-    id: "sentences",
-    title: "Построение предложений",
-    icon: MessageSquare,
-    iconColor: "text-purple-500",
+    id: "articles",
+    title: "Articles (A, An, The)",
+    icon: FileText,
+    iconColor: "text-green-500",
     content: [
       {
-        subtitle: "Порядок слов в предложении",
-        colorIndex: 4,
+        subtitle: "Indefinite Articles - A / An",
+        colorIndex: 0,
         rules: [
-          "В русском языке: Подлежащее + Сказуемое + Другие члены",
-          "Например: Я читаю книгу",
-          "Вопросительные предложения: с помощью интонации или вопросительных слов",
-          "Например: Ты читаешь? Что ты читаешь?",
+          "Use 'a' before consonant sounds: a book, a university",
+          "Use 'an' before vowel sounds: an apple, an hour",
+          "Used when mentioning something for the first time",
+          "Used with singular countable nouns",
+          "Example: I saw a cat in the garden",
+          "Example: She is an engineer",
         ],
       },
       {
-        subtitle: "Отрицательные предложения",
-        colorIndex: 5,
+        subtitle: "Definite Article - The",
+        colorIndex: 1,
         rules: [
-          "Частица «не» ставится перед глаголом",
-          "Например: Я не читаю",
-          "Например: Он не знает",
+          "Used when both speaker and listener know what is referred to",
+          "Used with unique things: the sun, the moon, the earth",
+          "Used with superlatives: the best, the biggest",
+          "Used with ordinal numbers: the first, the second",
+          "Example: The book you gave me is interesting",
+          "Example: The Nile is the longest river in Africa",
+        ],
+      },
+      {
+        subtitle: "Zero Article (No Article)",
+        colorIndex: 2,
+        rules: [
+          "With plural countable nouns (general): Cats are cute",
+          "With uncountable nouns (general): Water is essential",
+          "With proper nouns: John, London, Monday",
+          "With meals, languages, sports: breakfast, English, football",
+          "Example: I love music (in general)",
+          "Example: She speaks French fluently",
         ],
       },
     ],
   },
   {
     id: "pronouns",
-    title: "Местоимения",
+    title: "Pronouns",
     icon: User,
     iconColor: "text-pink-500",
     content: [
       {
-        subtitle: "Личные местоимения",
+        subtitle: "Subject Pronouns",
         colorIndex: 0,
         rules: [
-          "Единственное число: Я, Ты, Он, Она, Оно",
-          "Множественное число: Мы, Вы, Они",
-          "«Вы» используется как форма вежливости при обращении к одному человеку",
-          "Склонение: меня, мне, мной; тебя, тебе, тобой; его, ему, им; её, ей, ею",
+          "I, you, he, she, it, we, they",
+          "Used as the subject of a sentence",
+          "Example: I am a student",
+          "Example: They are playing football",
+          "Example: She works at a hospital",
         ],
       },
       {
-        subtitle: "Притяжательные местоимения",
+        subtitle: "Object Pronouns",
         colorIndex: 1,
         rules: [
-          "1-е лицо: Мой/моя/моё/мои, Наш/наша/наше/наши",
-          "2-е лицо: Твой/твоя/твоё/твои, Ваш/ваша/ваше/ваши",
-          "3-е лицо: Его, Её, Их (не изменяются по падежам)",
-          "Согласуются с определяемым существительным в роде, числе и падеже",
+          "me, you, him, her, it, us, them",
+          "Used as the object of a verb or preposition",
+          "Example: Give the book to me",
+          "Example: I saw them at the park",
+          "Example: She called him yesterday",
         ],
       },
       {
-        subtitle: "Указательные местоимения",
+        subtitle: "Possessive Adjectives & Pronouns",
         colorIndex: 2,
         rules: [
-          "Этот/эта/это/эти - указывает на близкий предмет",
-          "Тот/та/то/те - указывает на дальний предмет",
-          "Такой/такая/такое/такие - указывает на качество",
-          "Таков/такова/таково/таковы - книжная форма",
-          "Столько - указывает на количество",
+          "Adjectives: my, your, his, her, its, our, their",
+          "Pronouns: mine, yours, his, hers, ours, theirs",
+          "Example: This is my book / This book is mine",
+          "Example: Their house is big / The big house is theirs",
+          "Adjectives come before nouns; pronouns stand alone",
         ],
       },
       {
-        subtitle: "Вопросительные местоимения",
+        subtitle: "Reflexive Pronouns",
         colorIndex: 3,
         rules: [
-          "Кто? Что? - спрашивают о лице или предмете",
-          "Какой? Какая? Какое? Какие? - спрашивают о признаке",
-          "Который? Которая? - спрашивают о порядке",
-          "Чей? Чья? Чьё? Чьи? - спрашивают о принадлежности",
-          "Сколько? - спрашивают о количестве",
+          "myself, yourself, himself, herself, itself, ourselves, themselves",
+          "Used when subject and object are the same",
+          "Example: I hurt myself",
+          "Example: She taught herself to play piano",
+          "Used for emphasis: I did it myself",
         ],
       },
+    ],
+  },
+  {
+    id: "prepositions",
+    title: "Prepositions",
+    icon: TableProperties,
+    iconColor: "text-blue-500",
+    content: [
       {
-        subtitle: "Относительные местоимения",
-        colorIndex: 4,
-        rules: [
-          "Кто, что, какой, который, чей, сколько",
-          "Используются для связи частей сложного предложения",
-          "Например: Я знаю, кто это сделал",
-          "Например: Книга, которую я читаю, интересная",
-        ],
-      },
-      {
-        subtitle: "Определительные местоимения",
-        colorIndex: 5,
-        rules: [
-          "Весь/вся/всё/все - обозначает полноту охвата",
-          "Всякий/всякая/всякое - обозначает любой из подобных",
-          "Каждый/каждая/каждое - выделяет один из группы",
-          "Сам/сама/само/сами - указывает на лицо, производящее действие",
-          "Самый/самая/самое - образует превосходную степень",
-          "Иной, другой, любой - указывают на отличие",
-        ],
-      },
-      {
-        subtitle: "Отрицательные местоимения",
+        subtitle: "Prepositions of Time",
         colorIndex: 0,
         rules: [
-          "Никто, ничто - отрицание лица или предмета",
-          "Никакой, ничей - отрицание признака или принадлежности",
-          "Нисколько - отрицание количества",
-          "Некого, нечего - отсутствие объекта для действия",
-          "Например: Никто не пришёл. Мне некого спросить",
+          "AT: specific times - at 5 o'clock, at noon, at night",
+          "ON: days and dates - on Monday, on July 4th",
+          "IN: months, years, seasons - in January, in 2024, in summer",
+          "FOR: duration - for two hours, for a week",
+          "SINCE: starting point - since Monday, since 2020",
+          "DURING: within a period - during the meeting",
         ],
       },
       {
-        subtitle: "Неопределённые местоимения",
+        subtitle: "Prepositions of Place",
         colorIndex: 1,
         rules: [
-          "С приставкой не-: некто, нечто, некоторый, несколько",
-          "С суффиксом -то: кто-то, что-то, какой-то, чей-то",
-          "С суффиксом -нибудь: кто-нибудь, что-нибудь, какой-нибудь",
-          "С суффиксом -либо: кто-либо, что-либо (книжный стиль)",
-          "С приставкой кое-: кое-кто, кое-что, кое-какой",
+          "IN: enclosed spaces - in the room, in the box, in the car",
+          "ON: surfaces - on the table, on the wall, on the floor",
+          "AT: specific points - at the door, at the bus stop, at home",
+          "UNDER: below - under the table, under the bridge",
+          "BETWEEN: in the middle of two - between the chairs",
+          "NEXT TO / BESIDE: at the side - next to the bank",
         ],
       },
       {
-        subtitle: "Возвратное местоимение",
+        subtitle: "Prepositions of Movement",
         colorIndex: 2,
         rules: [
-          "Себя - указывает на отношение действия к самому субъекту",
-          "Не имеет именительного падежа и формы числа/рода",
-          "Склонение: себя (Р., В.), себе (Д., П.), собой/собою (Т.)",
-          "Например: Он купил себе книгу. Она довольна собой",
+          "TO: destination - go to school, walk to the park",
+          "INTO: entering - go into the room, jump into the water",
+          "OUT OF: exiting - get out of the car, come out of the house",
+          "THROUGH: passing inside - walk through the tunnel",
+          "ACROSS: from one side to another - swim across the river",
+          "ALONG: following a path - walk along the street",
+        ],
+      },
+    ],
+  },
+  {
+    id: "sentences",
+    title: "Sentence Structure",
+    icon: MessageSquare,
+    iconColor: "text-purple-500",
+    content: [
+      {
+        subtitle: "Basic Word Order",
+        colorIndex: 4,
+        rules: [
+          "English follows Subject + Verb + Object (SVO) order",
+          "Example: I (S) eat (V) breakfast (O)",
+          "Example: She (S) reads (V) books (O)",
+          "Adjectives come before nouns: a big house, a red car",
+          "Adverbs of frequency before main verb: I always work hard",
+        ],
+      },
+      {
+        subtitle: "Question Formation",
+        colorIndex: 5,
+        rules: [
+          "Yes/No questions: Auxiliary + Subject + Verb",
+          "Example: Do you like coffee? Is she coming?",
+          "WH-questions: WH-word + Auxiliary + Subject + Verb",
+          "Example: Where do you live? What are you doing?",
+          "Question words: What, Where, When, Why, Who, How",
+        ],
+      },
+      {
+        subtitle: "Negative Sentences",
+        colorIndex: 0,
+        rules: [
+          "Present Simple: Subject + don't/doesn't + base verb",
+          "Example: I don't like fish. He doesn't work here.",
+          "Past Simple: Subject + didn't + base verb",
+          "Example: I didn't go to school yesterday",
+          "Be verb: Subject + am not/isn't/aren't",
+          "Example: She isn't happy. They aren't ready.",
+        ],
+      },
+      {
+        subtitle: "Conjunctions",
+        colorIndex: 1,
+        rules: [
+          "AND: adds information - I have a cat and a dog",
+          "BUT: shows contrast - I'm tired but I'll help you",
+          "OR: shows choice - Do you want tea or coffee?",
+          "SO: shows result - It was raining, so I took an umbrella",
+          "BECAUSE: shows reason - I stayed home because I was sick",
+          "ALTHOUGH: shows contrast - Although it was cold, we went out",
         ],
       },
     ],
@@ -320,50 +321,50 @@ const Grammar = () => {
           <div className="absolute right-0 top-10 h-48 w-48 rounded-full bg-emerald-500/15 dark:bg-emerald-500/10 blur-[60px] animate-pulse" style={{ animationDelay: "1s" }} />
           <div className="absolute left-1/4 bottom-0 h-56 w-56 rounded-full bg-green-500/10 dark:bg-green-500/10 blur-[80px]" />
           
-          {/* Large decorative case labels - very faint */}
-          <div className="absolute left-[5%] top-[10%] text-7xl md:text-8xl font-black text-green-400/[0.08] dark:text-green-400/[0.06] select-none">Им.</div>
-          <div className="absolute right-[8%] top-[5%] text-6xl md:text-7xl font-black text-emerald-500/[0.07] dark:text-emerald-500/[0.05] select-none">Род.</div>
-          <div className="absolute left-[15%] bottom-[15%] text-6xl md:text-7xl font-black text-green-400/[0.08] dark:text-green-400/[0.06] select-none">Дат.</div>
-          <div className="absolute right-[12%] bottom-[20%] text-7xl md:text-8xl font-black text-emerald-500/[0.07] dark:text-emerald-500/[0.05] select-none">Вин.</div>
-          <div className="absolute left-[40%] top-[8%] text-5xl md:text-6xl font-black text-green-400/[0.08] dark:text-green-400/[0.06] select-none">Твор.</div>
-          <div className="absolute right-[35%] bottom-[10%] text-5xl md:text-6xl font-black text-emerald-500/[0.07] dark:text-emerald-500/[0.06] select-none">Пред.</div>
+          {/* Large decorative labels - very faint */}
+          <div className="absolute left-[5%] top-[10%] text-7xl md:text-8xl font-black text-green-400/[0.08] dark:text-green-400/[0.06] select-none">A</div>
+          <div className="absolute right-[8%] top-[5%] text-6xl md:text-7xl font-black text-emerald-500/[0.07] dark:text-emerald-500/[0.05] select-none">The</div>
+          <div className="absolute left-[15%] bottom-[15%] text-6xl md:text-7xl font-black text-green-400/[0.08] dark:text-green-400/[0.06] select-none">Is</div>
+          <div className="absolute right-[12%] bottom-[20%] text-7xl md:text-8xl font-black text-emerald-500/[0.07] dark:text-emerald-500/[0.05] select-none">Do</div>
+          <div className="absolute left-[40%] top-[8%] text-5xl md:text-6xl font-black text-green-400/[0.08] dark:text-green-400/[0.06] select-none">Will</div>
+          <div className="absolute right-[35%] bottom-[10%] text-5xl md:text-6xl font-black text-emerald-500/[0.07] dark:text-emerald-500/[0.06] select-none">Have</div>
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="mx-auto max-w-2xl text-center">
             <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/20 dark:border-white/10 px-4 py-2 text-sm font-medium text-primary shadow-lg animate-fade-in">
               <BookOpen className="h-4 w-4" />
-              6 падежей • 5 тем
+              5 Topics • 20+ Rules
             </div>
             
             <h1 className="mb-4 text-4xl font-extrabold tracking-tight text-foreground md:text-5xl animate-fade-in" style={{ animationDelay: "100ms" }}>
-              Грамматика
+              Grammar
             </h1>
             
             <p className="mb-6 text-lg text-muted-foreground animate-fade-in" style={{ animationDelay: "200ms" }}>
-              Изучайте основы русской грамматики - от падежей до грамматических правил
+              Learn English grammar basics - from tenses to sentence structure
             </p>
 
             <div className="flex items-center justify-center gap-4 flex-wrap animate-fade-in" style={{ animationDelay: "300ms" }}>
               <div className="flex items-center gap-2 rounded-xl glass-section px-4 py-2">
                 <span className="text-2xl">📋</span>
                 <div className="text-left">
-                  <p className="text-lg font-bold text-foreground">6</p>
-                  <p className="text-xs text-muted-foreground">Падежей</p>
+                  <p className="text-lg font-bold text-foreground">5</p>
+                  <p className="text-xs text-muted-foreground">Topics</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 rounded-xl glass-section px-4 py-2">
                 <span className="text-2xl">📚</span>
                 <div className="text-left">
-                  <p className="text-lg font-bold text-foreground">5</p>
-                  <p className="text-xs text-muted-foreground">Тем</p>
+                  <p className="text-lg font-bold text-foreground">18</p>
+                  <p className="text-xs text-muted-foreground">Sections</p>
                 </div>
               </div>
               <div className="flex items-center gap-2 rounded-xl glass-section px-4 py-2">
                 <span className="text-2xl">🎯</span>
                 <div className="text-left">
-                  <p className="text-lg font-bold text-foreground">20+</p>
-                  <p className="text-xs text-muted-foreground">Правил</p>
+                  <p className="text-lg font-bold text-foreground">100+</p>
+                  <p className="text-xs text-muted-foreground">Rules</p>
                 </div>
               </div>
             </div>
@@ -413,7 +414,7 @@ const Grammar = () => {
                       expandedTopic === topic.id ? "text-primary" : "text-foreground group-hover:text-primary/80"
                     )}>{topic.title}</h3>
                     <p className="text-sm text-muted-foreground">
-                      {topic.content.length} {topic.content.length === 1 ? "раздел" : topic.content.length < 5 ? "раздела" : "разделов"}
+                      {topic.content.length} {topic.content.length === 1 ? "section" : "sections"}
                     </p>
                   </div>
                 </div>
@@ -437,7 +438,7 @@ const Grammar = () => {
                   <div className="border-t border-border px-6 pb-6 bg-gradient-to-b from-primary/5 to-transparent">
                     <div className="grid gap-3 mt-6">
                       {topic.content.map((section, idx) => {
-                        const colors = caseColors[section.colorIndex ?? idx % caseColors.length];
+                        const colors = topicColors[section.colorIndex ?? idx % topicColors.length];
                         const isExpanded = isSectionExpanded(topic.id, idx);
                         return (
                           <div 
@@ -501,7 +502,7 @@ const Grammar = () => {
                                         style={{ animationDelay: `${ruleIdx * 60}ms` }}
                                       >
                                         <span className={cn("mt-0.5 transition-transform", colors.text, isExpanded && "animate-pulse")}>
-                                          {rule.startsWith("📌") ? "" : rule.startsWith("🔗") ? "" : "•"}
+                                          •
                                         </span>
                                         <span className="leading-relaxed">{rule}</span>
                                       </li>
