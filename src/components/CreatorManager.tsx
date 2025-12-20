@@ -100,12 +100,19 @@ const CreatorManager = () => {
         imageUrl = urlData.publicUrl;
       }
 
+      // Build telegram link from username
+      let fullTelegramLink: string | null = null;
+      if (telegramLink.trim()) {
+        const username = telegramLink.trim().replace(/^@/, "");
+        fullTelegramLink = `https://t.me/${username}`;
+      }
+
       // Insert creator via edge function
       const result = await adminApiCall("create", {
         creatorData: {
           name: name.trim(),
           image_url: imageUrl,
-          telegram_link: telegramLink.trim() || null,
+          telegram_link: fullTelegramLink,
         },
       });
 
@@ -183,12 +190,12 @@ const CreatorManager = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="telegram">Telegram Link</Label>
+                <Label htmlFor="telegram">Telegram Username</Label>
                 <Input
                   id="telegram"
                   value={telegramLink}
                   onChange={(e) => setTelegramLink(e.target.value)}
-                  placeholder="https://t.me/username"
+                  placeholder="@username"
                 />
               </div>
 
