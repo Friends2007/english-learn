@@ -6,8 +6,15 @@ interface IntroSplashProps {
   onComplete: () => void;
 }
 
+const englishWords = [
+  "Hello", "Welcome", "Learn", "Speak", "Read", "Write", 
+  "Listen", "Practice", "Success", "English", "Easy", "Fun"
+];
+
 const IntroSplash = ({ onComplete }: IntroSplashProps) => {
   const [stage, setStage] = useState(0);
+  const [typedText, setTypedText] = useState("");
+  const fullText = "Welcome to Learning!";
 
   useEffect(() => {
     const timers = [
@@ -20,6 +27,22 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
 
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);
+
+  // Typing animation effect
+  useEffect(() => {
+    if (stage >= 2) {
+      let index = 0;
+      const typeInterval = setInterval(() => {
+        if (index <= fullText.length) {
+          setTypedText(fullText.slice(0, index));
+          index++;
+        } else {
+          clearInterval(typeInterval);
+        }
+      }, 80);
+      return () => clearInterval(typeInterval);
+    }
+  }, [stage]);
 
   return (
     <div className={cn(
@@ -34,25 +57,63 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
       <div className="absolute -left-32 top-1/4 h-80 w-80 rounded-full bg-primary/20 dark:bg-primary/30 blur-[100px] animate-pulse" />
       <div className="absolute -right-32 bottom-1/4 h-80 w-80 rounded-full bg-secondary/15 dark:bg-secondary/20 blur-[100px] animate-pulse" style={{ animationDelay: "1s" }} />
       
-      {/* Floating letters */}
+      {/* Floating English words */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {["A", "B", "C", "D", "E", "F", "G", "H"].map((letter, i) => (
+        {englishWords.map((word, i) => (
           <div
-            key={letter}
+            key={word}
             className={cn(
-              "absolute text-6xl font-bold text-primary/10 dark:text-primary/20 transition-all duration-1000",
-              stage >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+              "absolute text-2xl md:text-3xl font-bold transition-all duration-1000",
+              i % 3 === 0 ? "text-primary/20" : i % 3 === 1 ? "text-blue-400/15" : "text-emerald-400/15"
             )}
             style={{
-              left: `${10 + i * 12}%`,
-              top: `${20 + (i % 3) * 25}%`,
-              transitionDelay: `${i * 100}ms`,
-              animation: stage >= 2 ? `float-up ${8 + i}s ease-in-out infinite` : "none",
+              left: `${5 + (i % 4) * 25}%`,
+              top: `${10 + Math.floor(i / 4) * 30}%`,
+              opacity: stage >= 1 ? 1 : 0,
+              transform: stage >= 1 ? "translateY(0)" : "translateY(20px)",
+              transitionDelay: `${i * 80}ms`,
+              animation: stage >= 2 ? `float-up ${6 + (i % 5)}s ease-in-out infinite` : "none",
             }}
           >
-            {letter}
+            {word}
           </div>
         ))}
+      </div>
+
+      {/* Animated letters circle */}
+      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+        <div 
+          className={cn(
+            "relative w-64 h-64 md:w-80 md:h-80 transition-all duration-1000",
+            stage >= 1 ? "opacity-100 scale-100" : "opacity-0 scale-50"
+          )}
+          style={{
+            animation: stage >= 2 ? "spin 20s linear infinite" : "none"
+          }}
+        >
+          {["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"].map((letter, i) => {
+            const angle = (i * 30) * (Math.PI / 180);
+            const radius = 120;
+            const x = Math.cos(angle) * radius;
+            const y = Math.sin(angle) * radius;
+            
+            return (
+              <div
+                key={letter}
+                className="absolute text-3xl md:text-4xl font-bold text-primary/30 dark:text-primary/40"
+                style={{
+                  left: "50%",
+                  top: "50%",
+                  transform: `translate(-50%, -50%) translate(${x}px, ${y}px)`,
+                  animation: stage >= 2 ? `pulse 2s ease-in-out infinite` : "none",
+                  animationDelay: `${i * 100}ms`
+                }}
+              >
+                {letter}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Center content */}
@@ -60,7 +121,7 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
         {/* Logo */}
         <div className={cn(
           "inline-flex items-center justify-center h-24 w-24 rounded-3xl gradient-button text-white mb-6 shadow-glow-lg transition-all duration-700",
-          stage >= 1 ? "scale-100 opacity-100" : "scale-50 opacity-0"
+          stage >= 1 ? "scale-100 opacity-100 rotate-0" : "scale-50 opacity-0 -rotate-12"
         )}>
           <BookOpen className="h-12 w-12" />
         </div>
@@ -73,13 +134,44 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
           Learn English
         </h1>
 
-        {/* Subtitle with typing effect */}
+        {/* Typing animation text */}
+        <div className={cn(
+          "h-8 mb-2 transition-opacity duration-500",
+          stage >= 2 ? "opacity-100" : "opacity-0"
+        )}>
+          <p className="text-lg text-primary font-medium">
+            {typedText}
+            <span className="animate-pulse">|</span>
+          </p>
+        </div>
+
+        {/* Subtitle */}
         <p className={cn(
           "text-xl text-muted-foreground transition-all duration-700",
           stage >= 3 ? "translate-y-0 opacity-100" : "translate-y-5 opacity-0"
         )}>
           Master English language — <span className="text-primary font-semibold">easily</span>
         </p>
+
+        {/* Animated words showcase */}
+        <div className={cn(
+          "flex justify-center gap-3 mt-6 flex-wrap max-w-md mx-auto transition-all duration-700",
+          stage >= 3 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
+        )}>
+          {["Grammar", "Vocabulary", "Reading", "Listening"].map((skill, i) => (
+            <span
+              key={skill}
+              className="px-3 py-1 rounded-full text-sm font-medium bg-primary/10 text-primary border border-primary/20"
+              style={{
+                animation: stage >= 3 ? `fade-in 0.5s ease-out forwards` : "none",
+                animationDelay: `${i * 150}ms`,
+                opacity: 0
+              }}
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
 
         {/* Loading dots */}
         <div className={cn(
