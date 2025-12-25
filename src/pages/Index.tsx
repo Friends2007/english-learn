@@ -191,39 +191,6 @@ const Index = () => {
           </div>
         </section>
 
-        {/* Quick Info */}
-        <section className="mt-12 rounded-2xl glass-section p-6 hover:shadow-glow transition-all duration-300">
-          <h3 className="text-xl font-bold text-foreground mb-4">About the App</h3>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
-              <div className="rounded-lg bg-primary/20 backdrop-blur-sm p-2.5 text-primary transition-transform duration-300 hover:scale-110 border border-primary/20">
-                <BookOpen className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground">Large Vocabulary</h4>
-                <p className="text-sm text-muted-foreground">200+ words and expressions</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
-              <div className="rounded-lg bg-secondary/20 backdrop-blur-sm p-2.5 text-secondary transition-transform duration-300 hover:scale-110 border border-secondary/20">
-                <PenTool className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground">Exercises</h4>
-                <p className="text-sm text-muted-foreground">Practical assignments</p>
-              </div>
-            </div>
-            <div className="flex items-start gap-3 p-4 rounded-xl transition-all duration-300 hover:bg-white/10 dark:hover:bg-white/5 backdrop-blur-sm border border-transparent hover:border-white/10">
-              <div className="rounded-lg bg-primary/20 backdrop-blur-sm p-2.5 text-primary transition-transform duration-300 hover:scale-110 border border-primary/20">
-                <FileCheck className="h-5 w-5" />
-              </div>
-              <div>
-                <h4 className="font-semibold text-foreground">Interactive Tests</h4>
-                <p className="text-sm text-muted-foreground">Knowledge check</p>
-              </div>
-            </div>
-          </div>
-        </section>
       </main>
 
       {/* Footer */}
