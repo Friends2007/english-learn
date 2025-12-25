@@ -1,6 +1,7 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { BookOpen } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 interface IntroSplashProps {
   onComplete: () => void;
@@ -15,6 +16,8 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
   const [stage, setStage] = useState(0);
   const [typedText, setTypedText] = useState("");
   const fullText = "Welcome to Learning!";
+  const { playChime, playTypeClick, playWhoosh, playSparkle, playSuccess } = useSoundEffects();
+  const soundPlayedRef = useRef({ chime: false, whoosh: false, sparkle: false, success: false });
 
   useEffect(() => {
     const timers = [
@@ -28,13 +31,36 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
     return () => timers.forEach(clearTimeout);
   }, [onComplete]);
 
-  // Typing animation effect
+  // Sound effects for each stage
+  useEffect(() => {
+    if (stage === 1 && !soundPlayedRef.current.chime) {
+      soundPlayedRef.current.chime = true;
+      playChime();
+    }
+    if (stage === 2 && !soundPlayedRef.current.whoosh) {
+      soundPlayedRef.current.whoosh = true;
+      playWhoosh();
+    }
+    if (stage === 3 && !soundPlayedRef.current.sparkle) {
+      soundPlayedRef.current.sparkle = true;
+      playSparkle();
+    }
+    if (stage === 4 && !soundPlayedRef.current.success) {
+      soundPlayedRef.current.success = true;
+      playSuccess();
+    }
+  }, [stage, playChime, playWhoosh, playSparkle, playSuccess]);
+
+  // Typing animation effect with sound
   useEffect(() => {
     if (stage >= 2) {
       let index = 0;
       const typeInterval = setInterval(() => {
         if (index <= fullText.length) {
           setTypedText(fullText.slice(0, index));
+          if (index > 0 && index < fullText.length) {
+            playTypeClick();
+          }
           index++;
         } else {
           clearInterval(typeInterval);
@@ -42,7 +68,7 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
       }, 80);
       return () => clearInterval(typeInterval);
     }
-  }, [stage]);
+  }, [stage, playTypeClick]);
 
   return (
     <div className={cn(
