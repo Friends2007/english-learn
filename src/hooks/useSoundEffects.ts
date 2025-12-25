@@ -25,11 +25,11 @@ export function useSoundEffects() {
     oscillator.frequency.setValueAtTime(880, now);
     oscillator.frequency.exponentialRampToValueAtTime(1320, now + 0.1);
 
-    gainNode.gain.setValueAtTime(0.15, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+    gainNode.gain.setValueAtTime(0.06, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
 
     oscillator.start(now);
-    oscillator.stop(now + 0.5);
+    oscillator.stop(now + 0.4);
   }, [getAudioContext]);
 
   // Typing click sound
@@ -43,14 +43,14 @@ export function useSoundEffects() {
     oscillator.connect(gainNode);
     gainNode.connect(ctx.destination);
 
-    oscillator.type = 'square';
-    oscillator.frequency.setValueAtTime(1200 + Math.random() * 200, now);
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(800 + Math.random() * 100, now);
 
-    gainNode.gain.setValueAtTime(0.03, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+    gainNode.gain.setValueAtTime(0.015, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
 
     oscillator.start(now);
-    oscillator.stop(now + 0.05);
+    oscillator.stop(now + 0.03);
   }, [getAudioContext]);
 
   // Whoosh sound for transitions
@@ -58,8 +58,7 @@ export function useSoundEffects() {
     const ctx = getAudioContext();
     const now = ctx.currentTime;
 
-    // Create noise
-    const bufferSize = ctx.sampleRate * 0.3;
+    const bufferSize = ctx.sampleRate * 0.2;
     const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
     const data = buffer.getChannelData(0);
 
@@ -72,12 +71,12 @@ export function useSoundEffects() {
 
     const filter = ctx.createBiquadFilter();
     filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(1000, now);
-    filter.frequency.exponentialRampToValueAtTime(300, now + 0.3);
+    filter.frequency.setValueAtTime(800, now);
+    filter.frequency.exponentialRampToValueAtTime(200, now + 0.2);
 
     const gainNode = ctx.createGain();
-    gainNode.gain.setValueAtTime(0.1, now);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+    gainNode.gain.setValueAtTime(0.04, now);
+    gainNode.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
 
     noise.connect(filter);
     filter.connect(gainNode);
@@ -91,7 +90,7 @@ export function useSoundEffects() {
     const ctx = getAudioContext();
     const now = ctx.currentTime;
 
-    const frequencies = [1047, 1319, 1568, 2093];
+    const frequencies = [1047, 1319, 1568];
     
     frequencies.forEach((freq, i) => {
       const oscillator = ctx.createOscillator();
@@ -101,14 +100,14 @@ export function useSoundEffects() {
       gainNode.connect(ctx.destination);
 
       oscillator.type = 'sine';
-      oscillator.frequency.setValueAtTime(freq, now + i * 0.08);
+      oscillator.frequency.setValueAtTime(freq, now + i * 0.06);
 
       gainNode.gain.setValueAtTime(0, now);
-      gainNode.gain.linearRampToValueAtTime(0.08, now + i * 0.08);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, now + i * 0.08 + 0.2);
+      gainNode.gain.linearRampToValueAtTime(0.04, now + i * 0.06);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, now + i * 0.06 + 0.15);
 
-      oscillator.start(now + i * 0.08);
-      oscillator.stop(now + i * 0.08 + 0.2);
+      oscillator.start(now + i * 0.06);
+      oscillator.stop(now + i * 0.06 + 0.15);
     });
   }, [getAudioContext]);
 
@@ -117,7 +116,7 @@ export function useSoundEffects() {
     const ctx = getAudioContext();
     const now = ctx.currentTime;
 
-    const notes = [523, 659, 784, 1047];
+    const notes = [523, 659, 784];
     
     notes.forEach((freq, i) => {
       const oscillator = ctx.createOscillator();
@@ -129,13 +128,13 @@ export function useSoundEffects() {
       oscillator.type = 'sine';
       oscillator.frequency.setValueAtTime(freq, now);
 
-      const startTime = now + i * 0.1;
+      const startTime = now + i * 0.08;
       gainNode.gain.setValueAtTime(0, startTime);
-      gainNode.gain.linearRampToValueAtTime(0.1, startTime + 0.05);
-      gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + 0.3);
+      gainNode.gain.linearRampToValueAtTime(0.05, startTime + 0.03);
+      gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + 0.2);
 
       oscillator.start(startTime);
-      oscillator.stop(startTime + 0.3);
+      oscillator.stop(startTime + 0.2);
     });
   }, [getAudioContext]);
 
