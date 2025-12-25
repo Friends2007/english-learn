@@ -16,7 +16,7 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
   const [stage, setStage] = useState(0);
   const [typedText, setTypedText] = useState("");
   const fullText = "Welcome to Learning!";
-  const { playChime, playWhoosh, playSparkle, playSuccess } = useSoundEffects();
+  const { playChime, playTypeClick, playWhoosh, playSparkle, playSuccess } = useSoundEffects();
   const soundPlayedRef = useRef({ chime: false, whoosh: false, sparkle: false, success: false });
 
   useEffect(() => {
@@ -51,13 +51,16 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
     }
   }, [stage, playChime, playWhoosh, playSparkle, playSuccess]);
 
-  // Typing animation effect
+  // Typing animation effect with sound
   useEffect(() => {
     if (stage >= 2) {
       let index = 0;
       const typeInterval = setInterval(() => {
         if (index <= fullText.length) {
           setTypedText(fullText.slice(0, index));
+          if (index > 0 && index < fullText.length) {
+            playTypeClick();
+          }
           index++;
         } else {
           clearInterval(typeInterval);
@@ -65,7 +68,7 @@ const IntroSplash = ({ onComplete }: IntroSplashProps) => {
       }, 80);
       return () => clearInterval(typeInterval);
     }
-  }, [stage]);
+  }, [stage, playTypeClick]);
 
   return (
     <div className={cn(
