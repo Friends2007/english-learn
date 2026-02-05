@@ -1,73 +1,189 @@
-# Welcome to your Lovable project
+<div align="center">
+  <h1>english-learn</h1>
+  <p><b>A modern English-learning web app — fast, clean, and built for daily practice.</b></p>
 
-## Project info
+  <p>
+    <a href="https://github.com/Friends2007/english-learn">
+      <img alt="Repo" src="https://img.shields.io/badge/repo-Friends2007%2Fenglish--learn-181717?style=for-the-badge&logo=github">
+    </a>
+    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/Friends2007/english-learn?style=for-the-badge">
+    <img alt="Stars" src="https://img.shields.io/github/stars/Friends2007/english-learn?style=for-the-badge">
+    <img alt="Issues" src="https://img.shields.io/github/issues/Friends2007/english-learn?style=for-the-badge">
+    <img alt="Top Language" src="https://img.shields.io/github/languages/top/Friends2007/english-learn?style=for-the-badge">
+    <img alt="Repo Size" src="https://img.shields.io/github/repo-size/Friends2007/english-learn?style=for-the-badge">
+  </p>
 
-**URL**: https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID
+  <p>
+    <a href="#-overview">Overview</a> ·
+    <a href="#-features">Features</a> ·
+    <a href="#-tech-stack">Tech Stack</a> ·
+    <a href="#-getting-started">Getting Started</a> ·
+    <a href="#-configuration--env">Env</a> ·
+    <a href="#-deployment">Deployment</a>
+  </p>
 
-## How can I edit this code?
+  <p><i>Ship fast. Practice daily. Improve continuously.</i></p>
+</div>
 
-There are several ways of editing your application.
+---
 
-**Use Lovable**
+## ✨ Overview
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and start prompting.
+**english-learn** is a frontend-first English learning web app designed to make practice feel easy, consistent, and motivating.
 
-Changes made via Lovable will be committed automatically to this repo.
+The goal is simple:
+- keep the UI fast and minimal
+- keep the learning loop short
+- keep shipping improvements without fighting the stack
 
-**Use your preferred IDE**
+---
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+## 🎯 What this project solves
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Learning breaks down when:
+- practice isn’t consistent
+- feedback loops are slow
+- the app feels heavy or distracting
 
-Follow these steps:
+This project focuses on a clean experience that supports daily repetition.
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+---
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## ✅ Features
 
-# Step 3: Install the necessary dependencies.
-npm i
+> Some items may be in-progress depending on the current build — the structure is designed to scale.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+- Modern UI with reusable components
+- Fast dev loop (Vite + HMR)
+- Backend-ready structure (optional Supabase integration)
+- Clean codebase designed for iteration
+
+---
+
+## 🧱 Tech Stack
+
+- Frontend: Vite, React, TypeScript
+- UI: Tailwind CSS, shadcn-ui
+- Backend (optional): Supabase
+
+---
+
+## 📁 Project Structure (typical)
+
+- `src/` — pages, components, logic
+- `public/` — static assets
+- `supabase/` — migrations/config (if used)
+- `.env` / `.env.local` — environment variables
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+- Node.js (LTS recommended)
+- npm or bun
+
+### Install
+
+```bash
+git clone https://github.com/Friends2007/english-learn.git
+cd english-learn
+npm install
+
+Run locally
 npm run dev
-```
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Vite typically runs on http://localhost:5173.
 
-**Use GitHub Codespaces**
+🧪 Scripts
+npm run dev      # start dev server
+npm run build    # production build
+npm run preview  # preview production build locally
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
 
-## What technologies are used for this project?
+If you're using bun:
 
-This project is built with:
+bun install
+bun run dev
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+🔐 Configuration & Env
 
-## How can I deploy this project?
+This project may use environment variables (especially if you enable Supabase).
 
-Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
+Recommended workflow:
 
-## Can I connect a custom domain to my Lovable project?
+Create a local env file: /.env.local
 
-Yes, you can!
+Put secrets there (do not commit real keys)
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Example .env.local:
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+# =========================
+# Optional: Supabase
+# =========================
+VITE_SUPABASE_URL="https://YOUR_PROJECT.supabase.co"
+VITE_SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY"
+
+
+Note: your actual keys depend on how your app reads env vars (e.g., import.meta.env.*).
+
+🗄️ Supabase (Optional)
+
+If you want auth + database + progress tracking:
+
+Create a Supabase project
+
+Add keys into .env.local
+
+Use the supabase/ folder for schema/migrations (if present)
+
+🌍 Deployment
+
+You can deploy to any static hosting provider.
+
+Vercel / Netlify / Cloudflare Pages:
+
+Build command: npm run build
+
+Output directory: dist
+
+Add the same environment variables in your provider dashboard if needed
+
+🧭 Roadmap
+
+ Onboarding / placement flow
+
+ Practice categories (vocab / listening / speaking prompts)
+
+ Progress tracking + streaks
+
+ Content tagging + smart review
+
+ Offline-friendly improvements
+
+🤝 Contributing
+
+PRs are welcome.
+
+Keep changes small and focused
+
+Prefer reusable components
+
+Maintain consistent spacing/typography
+
+Add screenshots for UI changes if possible
+
+🛡️ Security
+
+If you discover a vulnerability or leaked secrets:
+
+rotate keys immediately
+
+remove leaked secrets from git history if needed
+
+📄 License
+
+No license is specified yet.
+If you plan to open-source, add a LICENSE file (MIT is a common choice).
