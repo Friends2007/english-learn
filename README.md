@@ -1,189 +1,104 @@
-<div align="center">
-  <h1>english-learn</h1>
-  <p><b>A modern English-learning web app — fast, clean, and built for daily practice.</b></p>
 
-  <p>
-    <a href="https://github.com/Friends2007/english-learn">
-      <img alt="Repo" src="https://img.shields.io/badge/repo-Friends2007%2Fenglish--learn-181717?style=for-the-badge&logo=github">
-    </a>
-    <img alt="Last Commit" src="https://img.shields.io/github/last-commit/Friends2007/english-learn?style=for-the-badge">
-    <img alt="Stars" src="https://img.shields.io/github/stars/Friends2007/english-learn?style=for-the-badge">
-    <img alt="Issues" src="https://img.shields.io/github/issues/Friends2007/english-learn?style=for-the-badge">
-    <img alt="Top Language" src="https://img.shields.io/github/languages/top/Friends2007/english-learn?style=for-the-badge">
-    <img alt="Repo Size" src="https://img.shields.io/github/repo-size/Friends2007/english-learn?style=for-the-badge">
-  </p>
-
-  <p>
-    <a href="#-overview">Overview</a> ·
-    <a href="#-features">Features</a> ·
-    <a href="#-tech-stack">Tech Stack</a> ·
-    <a href="#-getting-started">Getting Started</a> ·
-    <a href="#-configuration--env">Env</a> ·
-    <a href="#-deployment">Deployment</a>
-  </p>
-
-  <p><i>Ship fast. Practice daily. Improve continuously.</i></p>
-</div>
+(Confirmed the current repo README is the default Lovable boilerplate and the listed stack is Vite + TS + React + shadcn-ui + Tailwind.) :contentReference[oaicite:0]{index=0}
 
 ---
 
-## ✨ Overview
+### `Friends2007/english-learn` — new `README.md` (copy/paste)
 
-**english-learn** is a frontend-first English learning web app designed to make practice feel easy, consistent, and motivating.
+```md
+# English Learn
 
-The goal is simple:
-- keep the UI fast and minimal
-- keep the learning loop short
-- keep shipping improvements without fighting the stack
+A simple **English-learning companion** web app built with Vite + React (TypeScript) and a clean shadcn-ui + Tailwind UI.
 
----
+* * *
 
-## 🎯 What this project solves
+## What problem this solves
 
-Learning breaks down when:
-- practice isn’t consistent
-- feedback loops are slow
-- the app feels heavy or distracting
+Learning English consistently is hard when:
+- practice is not structured,
+- materials are scattered,
+- progress is hard to track.
 
-This project focuses on a clean experience that supports daily repetition.
+This repo aims to provide a single place to practice and stay consistent.
 
----
+* * *
 
-## ✅ Features
+## Main features (in this repo)
 
-> Some items may be in-progress depending on the current build — the structure is designed to scale.
+- A fast, responsive UI for English-learning workflows (content + practice)
+- Easy to extend inside `src/`
+- Optional backend/data layer (there is a `supabase/` folder in this repo — configure only if you need it)
 
-- Modern UI with reusable components
-- Fast dev loop (Vite + HMR)
-- Backend-ready structure (optional Supabase integration)
-- Clean codebase designed for iteration
+> Note: Exact screens/features depend on what’s implemented in `src/`.
 
----
+* * *
 
-## 🧱 Tech Stack
+## Tech stack
 
-- Frontend: Vite, React, TypeScript
-- UI: Tailwind CSS, shadcn-ui
-- Backend (optional): Supabase
+- Vite
+- TypeScript
+- React
+- shadcn-ui
+- Tailwind CSS
+- (Optional) Supabase (if configured)
 
----
+* * *
 
-## 📁 Project Structure (typical)
+## Run locally
 
-- `src/` — pages, components, logic
-- `public/` — static assets
-- `supabase/` — migrations/config (if used)
-- `.env` / `.env.local` — environment variables
-
----
-
-## 🚀 Getting Started
-
-### Prerequisites
-
-- Node.js (LTS recommended)
-- npm or bun
-
-### Install
-
+### 1) Install
 ```bash
-git clone https://github.com/Friends2007/english-learn.git
-cd english-learn
 npm install
 
-Run locally
+
+2) Configure environment (optional)
+
+If the app uses Supabase or any external services, create an env file (don’t commit secrets):
+
+cp .env .env.local
+
+
+Then edit .env.local.
+
+3) Start dev server
 npm run dev
 
+Environment variables
 
-Vite typically runs on http://localhost:5173.
+Because this repo includes a .env file, make sure you do not commit real secrets.
+Recommended approach:
 
-🧪 Scripts
-npm run dev      # start dev server
-npm run build    # production build
-npm run preview  # preview production build locally
+keep .env.local for your machine (gitignored)
 
+add .env.example with empty placeholders
 
-If you're using bun:
+Typical Vite + Supabase keys look like:
 
-bun install
-bun run dev
+VITE_SUPABASE_URL
 
-🔐 Configuration & Env
+VITE_SUPABASE_ANON_KEY
 
-This project may use environment variables (especially if you enable Supabase).
+If your project uses different names, search the codebase for VITE_ or SUPABASE.
 
-Recommended workflow:
+Database (optional)
 
-Create a local env file: /.env.local
+If you’re using Supabase:
 
-Put secrets there (do not commit real keys)
+project config / migrations typically live under supabase/
 
-Example .env.local:
+run migrations using the Supabase CLI (if included in your workflow)
 
-# =========================
-# Optional: Supabase
-# =========================
-VITE_SUPABASE_URL="https://YOUR_PROJECT.supabase.co"
-VITE_SUPABASE_ANON_KEY="YOUR_SUPABASE_ANON_KEY"
+Contributing
 
+PRs and improvements are welcome:
 
-Note: your actual keys depend on how your app reads env vars (e.g., import.meta.env.*).
+add content
 
-🗄️ Supabase (Optional)
+improve UI/UX
 
-If you want auth + database + progress tracking:
+fix bugs
 
-Create a Supabase project
+License
 
-Add keys into .env.local
-
-Use the supabase/ folder for schema/migrations (if present)
-
-🌍 Deployment
-
-You can deploy to any static hosting provider.
-
-Vercel / Netlify / Cloudflare Pages:
-
-Build command: npm run build
-
-Output directory: dist
-
-Add the same environment variables in your provider dashboard if needed
-
-🧭 Roadmap
-
- Onboarding / placement flow
-
- Practice categories (vocab / listening / speaking prompts)
-
- Progress tracking + streaks
-
- Content tagging + smart review
-
- Offline-friendly improvements
-
-🤝 Contributing
-
-PRs are welcome.
-
-Keep changes small and focused
-
-Prefer reusable components
-
-Maintain consistent spacing/typography
-
-Add screenshots for UI changes if possible
-
-🛡️ Security
-
-If you discover a vulnerability or leaked secrets:
-
-rotate keys immediately
-
-remove leaked secrets from git history if needed
-
-📄 License
-
-No license is specified yet.
-If you plan to open-source, add a LICENSE file (MIT is a common choice).
+No license file is included yet.
+Add LICENSE if you want clear reuse permissions (MIT is common).
